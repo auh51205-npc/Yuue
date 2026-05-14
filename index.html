@@ -1,669 +1,891 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mộng Phi Thiên | Yuue Portfolio</title>
-
-  <!-- GOOGLE FONTS -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&family=Cinzel:wght@400;500;700&family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@300;400;500;600;700&family=ZCOOL+XiaoWei&display=swap" rel="stylesheet">
-
-  <!-- GSAP -->
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
-
-  <style>
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-    }
-
-    :root{
-      --bg:#07101f;
-      --bg2:#0c1a30;
-      --gold:#d7b56d;
-      --gold2:#f4d9a2;
-      --moon:#f4f6ff;
-      --red:#9f5b58;
-      --pink:#f0c3cb;
-      --mist:rgba(255,255,255,.06);
-      --line:rgba(255,230,170,.18);
-    }
-
-    html{
-      scroll-behavior:smooth;
-    }
-
-    body{
-      overflow-x:hidden;
-      background:
-      radial-gradient(circle at top, rgba(80,110,180,.18), transparent 40%),
-      radial-gradient(circle at bottom, rgba(255,160,120,.08), transparent 30%),
-      linear-gradient(to bottom,#07101f,#0c1a30,#060b14);
-      color:white;
-      font-family:"Be Vietnam Pro",sans-serif;
-      position:relative;
-    }
-
-    body::before{
-      content:"";
-      position:fixed;
-      inset:0;
-      background:
-      url("https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1920&auto=format&fit=crop")
-      center/cover;
-      opacity:.08;
-      z-index:-5;
-      filter:blur(2px);
-    }
-
-    /* SCROLLBAR */
-    ::-webkit-scrollbar{
-      width:10px;
-    }
-
-    ::-webkit-scrollbar-track{
-      background:#08111d;
-    }
-
-    ::-webkit-scrollbar-thumb{
-      background:linear-gradient(to bottom,var(--gold),#8d6a2d);
-      border-radius:30px;
-    }
-
-    /* LOADER */
-
-    .loader{
-      position:fixed;
-      inset:0;
-      background:#050b14;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      z-index:99999;
-      flex-direction:column;
-      transition:1s;
-    }
-
-  .loader.hide{
-      opacity:0;
-      pointer-events:none;
-    }
-
-    .loader h1{
-      font-family:"Ma Shan Zheng",cursive;
-      font-size:5rem;
-      color:var(--gold2);
-      letter-spacing:8px;
-      text-shadow:0 0 30px rgba(255,220,150,.5);
-      animation:breath 4s infinite;
-    }
-
-    .loader span{
-      margin-top:15px;
-      opacity:.7;
-      letter-spacing:4px;
-      color:#ddd;
-    }
-
-    @keyframes breath{
-      0%,100%{
-        transform:scale(1);
-        opacity:1;
-      }
-      50%{
-        transform:scale(1.05);
-        opacity:.8;
-      }
-    }
-
-    /* MOON */
-
-    .moon{
-      position:fixed;
-      top:100px;
-      right:7%;
-      width:300px;
-      height:300px;
-      border-radius:50%;
-      background:
-      radial-gradient(circle at 35% 35%,#fff,#eef1ff,#cad5ff 70%,transparent 75%);
-      box-shadow:
-      0 0 80px rgba(255,255,255,.4),
-      0 0 180px rgba(194,209,255,.3),
-      0 0 300px rgba(194,209,255,.15);
-      opacity:.9;
-      z-index:-2;
-      animation:moonFloat 8s ease-in-out infinite;
-    }
-
-    @keyframes moonFloat{
-      0%,100%{
-        transform:translateY(0px);
-      }
-      50%{
-        transform:translateY(-20px);
-      }
-    }
-
-    /* CLOUDS */
-
-    .cloud{
-      position:fixed;
-      width:700px;
-      height:220px;
-      background:
-      radial-gradient(circle, rgba(255,255,255,.08), transparent 70%);
-      filter:blur(40px);
-      z-index:-1;
-      animation:cloudMove 50s linear infinite;
-    }
-
-    .cloud.one{
-      top:10%;
-      left:-10%;
-    }
-
-    .cloud.two{
-      bottom:15%;
-      right:-10%;
-      animation-duration:70s;
-    }
-
-    @keyframes cloudMove{
-      from{
-        transform:translateX(0);
-      }
-      to{
-        transform:translateX(200px);
-      }
-    }
-
-    /* PARTICLES */
-
-    .particles{
-      position:fixed;
-      inset:0;
-      overflow:hidden;
-      z-index:-1;
-      pointer-events:none;
-    }
-
-    .particle{
-      position:absolute;
-      width:4px;
-      height:4px;
-      border-radius:50%;
-      background:white;
-      opacity:.5;
-      animation:floatParticle linear infinite;
-    }
-
-    @keyframes floatParticle{
-      from{
-        transform:translateY(100vh);
-        opacity:0;
-      }
-      20%{
-        opacity:.7;
-      }
-      to{
-        transform:translateY(-20vh);
-        opacity:0;
-      }
-    }
-
-    /* NAV */
-
-    nav{
-      position:fixed;
-      top:0;
-      width:100%;
-      padding:24px 7%;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      z-index:999;
-      backdrop-filter:blur(12px);
-      background:rgba(5,10,20,.28);
-      border-bottom:1px solid rgba(255,255,255,.06);
-    }
-
-    .logo{
-      font-family:"Ma Shan Zheng",cursive;
-      font-size:2rem;
-      color:var(--gold2);
-      text-shadow:0 0 20px rgba(255,220,150,.5);
-    }
-
-    nav ul{
-      display:flex;
-      gap:30px;
-      list-style:none;
-    }
-
-    nav a{
-      text-decoration:none;
-      color:#eee;
-      font-size:.95rem;
-      position:relative;
-      transition:.4s;
-      letter-spacing:2px;
-    }
-
-    nav a::after{
-      content:"";
-      position:absolute;
-      left:0;
-      bottom:-8px;
-      width:0%;
-      height:1px;
-      background:linear-gradient(to right,var(--gold),transparent);
-      transition:.4s;
-    }
-
-    nav a:hover{
-      color:var(--gold2);
-    }
-
-    nav a:hover::after{
-      width:100%;
-    }
-
-    /* HERO */
-
-    .hero{
-      min-height:100vh;
-      position:relative;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      padding:120px 7%;
-      overflow:hidden;
-    }
-
-    .hero-content{
-      position:relative;
-      z-index:10;
-      max-width:900px;
-      text-align:center;
-    }
-
-    .hero-sub{
-      color:var(--pink);
-      letter-spacing:5px;
-      margin-bottom:20px;
-      text-transform:uppercase;
-    }
-
-    .hero-title{
-      font-size:7rem;
-      font-family:"Ma Shan Zheng",cursive;
-      color:#fff;
-      line-height:1.1;
-      text-shadow:
-      0 0 20px rgba(255,255,255,.4),
-      0 0 80px rgba(255,210,130,.35);
-      animation:breath 5s infinite;
-    }
-
-    .hero-title span{
-      color:var(--gold2);
-    }
-
-    .hero-desc{
-      margin-top:30px;
-      line-height:2;
-      font-size:1.05rem;
-      color:#ddd;
-    }
-
-    .hero-buttons{
-      margin-top:50px;
-      display:flex;
-      justify-content:center;
-      gap:20px;
-      flex-wrap:wrap;
-    }
-
-    .btn{
-      padding:16px 30px;
-      border:1px solid rgba(255,220,160,.4);
-      background:rgba(255,255,255,.04);
-      color:#fff;
-      text-decoration:none;
-      letter-spacing:2px;
-      position:relative;
-      overflow:hidden;
-      backdrop-filter:blur(12px);
-      transition:.5s;
-      border-radius:60px;
-    }
-
-    .btn::before{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:linear-gradient(120deg,transparent,rgba(255,255,255,.15),transparent);
-      transform:translateX(-100%);
-    }
-
-    .btn:hover::before{
-      animation:shine 1.2s;
-    }
-
-    .btn:hover{
-      transform:translateY(-5px);
-      border-color:var(--gold2);
-      box-shadow:
-      0 0 30px rgba(255,220,150,.25),
-      inset 0 0 20px rgba(255,220,150,.08);
-    }
-
-    @keyframes shine{
-      to{
-        transform:translateX(100%);
-      }
-    }
-
-    /* DEER */
-
-    .deer{
-      position:absolute;
-      bottom:0;
-      left:50%;
-      transform:translateX(-50%);
-      width:780px;
-      opacity:.92;
-      animation:deerFloat 7s ease-in-out infinite;
-      filter:
-      drop-shadow(0 0 50px rgba(255,240,200,.15))
-      drop-shadow(0 0 120px rgba(255,220,120,.1));
-    }
-
-    @keyframes deerFloat{
-      0%,100%{
-        transform:translateX(-50%) translateY(0px);
-      }
-      50%{
-        transform:translateX(-50%) translateY(-20px);
-      }
-    }
-
-    /* SILK */
-
-    .silk{
-      position:absolute;
-      width:800px;
-      height:800px;
-      border-radius:50%;
-      border:2px solid rgba(255,210,160,.05);
-      animation:spin 25s linear infinite;
-    }
-
-    .silk::before{
-      content:"";
-      position:absolute;
-      inset:80px;
-      border-radius:50%;
-      border:1px solid rgba(255,180,120,.08);
-    }
-
-    @keyframes spin{
-      from{
-        transform:rotate(0deg);
-      }
-      to{
-        transform:rotate(360deg);
-      }
-    }
-
-    /* SECTION */
-
-    section{
-      padding:140px 8%;
-      position:relative;
-    }
-
-    .section-title{
-      text-align:center;
-      margin-bottom:80px;
-    }
-
-    .section-title h2{
-      font-size:4rem;
-      font-family:"Ma Shan Zheng",cursive;
-      color:var(--gold2);
-      margin-bottom:10px;
-    }
-
-    .section-title p{
-      color:#ccc;
-      letter-spacing:4px;
-    }
-
-    /* ABOUT */
-
-    .about-box{
-      max-width:1000px;
-      margin:auto;
-      padding:80px;
-      border:1px solid var(--line);
-      background:rgba(255,255,255,.03);
-      backdrop-filter:blur(16px);
-      position:relative;
-      overflow:hidden;
-    }
-
-    .about-box::before{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:
-      radial-gradient(circle at top right, rgba(255,220,160,.08), transparent 30%);
-      pointer-events:none;
-    }
-
-    .about-box h3{
-      font-size:3rem;
-      margin-bottom:30px;
-      font-family:"Cinzel",serif;
-      color:#fff;
-    }
-
-    .about-box p{
-      line-height:2.3;
-      font-size:1.1rem;
-      color:#ddd;
-    }
-
-    /* SKILLS */
-
-    .skills-grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-      gap:35px;
-    }
-
-    .skill-card{
-      padding:50px 35px;
-      border:1px solid rgba(255,220,150,.15);
-      background:rgba(255,255,255,.03);
-      backdrop-filter:blur(14px);
-      transition:.6s;
-      position:relative;
-      overflow:hidden;
-    }
-
-    .skill-card::before{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:
-      linear-gradient(130deg,rgba(255,220,160,.08),transparent);
-      opacity:0;
-      transition:.6s;
-    }
-
-    .skill-card:hover::before{
-      opacity:1;
-    }
-
-    .skill-card:hover{
-      transform:translateY(-12px);
-      border-color:rgba(255,220,160,.4);
-      box-shadow:0 0 40px rgba(255,220,160,.12);
-    }
-
-    .skill-icon{
-      font-size:3rem;
-      margin-bottom:20px;
-    }
-
-    .skill-card h4{
-      font-size:1.5rem;
-      margin-bottom:15px;
-      color:var(--gold2);
-    }
-
-    .skill-card p{
-      line-height:1.8;
-      color:#ddd;
-    }
-
-    /* TIMELINE */
-
-    .timeline{
-      position:relative;
-      max-width:1100px;
-      margin:auto;
-    }
-
-    .timeline::before{
-      content:"";
-      position:absolute;
-      left:50%;
-      transform:translateX(-50%);
-      width:2px;
-      height:100%;
-      background:
-      linear-gradient(to bottom,transparent,var(--gold),transparent);
-    }
-
-    .timeline-item{
-      width:50%;
-      padding:40px;
-      position:relative;
-    }
-
-    .timeline-item:nth-child(odd){
-      left:0;
-      text-align:right;
-    }
-
-    .timeline-item:nth-child(even){
-      left:50%;
-    }
-
-    .timeline-card{
-      padding:35px;
-      background:rgba(255,255,255,.03);
-      border:1px solid rgba(255,220,150,.15);
-      backdrop-filter:blur(14px);
-    }
-
-    .timeline-card h4{
-      color:var(--gold2);
-      margin-bottom:15px;
-      font-size:1.4rem;
-    }
-
-    .timeline-card p{
-      line-height:2;
-      color:#ddd;
-    }
-
-    /* GALLERY */
-
-    .gallery{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-      gap:35px;
-    }
-
-    .gallery-item{
-      position:relative;
-      overflow:hidden;
-      border:1px solid rgba(255,220,150,.2);
-      background:#111;
-      cursor:pointer;
-    }
-
-    .gallery-item img{
-      width:100%;
-      height:420px;
-      object-fit:cover;
-      transition:1s;
-      filter:brightness(.8);
-    }
-
-    .gallery-item:hover img{
-      transform:scale(1.08);
-      filter:brightness(1);
-    }
-
-    .gallery-overlay{
-      position:absolute;
-      inset:0;
-      background:linear-gradient(to top,rgba(0,0,0,.8),transparent);
-      display:flex;
-      align-items:flex-end;
-      padding:30px;
-    }
-
-    .gallery-overlay h4{
-      font-size:1.5rem;
-      color:#fff;
-    }
-
-    /* FOOTER */
-
-    footer{
-      padding:100px 8%;
-      text-align:center;
-      border-top:1px solid rgba(255,255,255,.06);
-      background:rgba(0,0,0,.2);
-    }
-
-    footer h3{
-      font-family:"Ma Shan Zheng",cursive;
-      font-size:3rem;
-      color:var(--gold2);
-      margin-bottom:20px;
-    }
-
-    footer p{
-      color:#ccc;
-      line-height:2;
-    }
-
-   /* PETALS */
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<title>Mộng Phi Thiên | Yuue Portfolio</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&family=Cinzel:wght@400;600;700&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+:root{
+  --gold:#e0c084;
+  --gold2:#f8dfb1;
+  --bg:#07101d;
+  --bg2:#0c1728;
+  --pink:#f1b7c9;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  overflow-x:hidden;
+  background:
+  radial-gradient(circle at top,#172945 0%,transparent 35%),
+  radial-gradient(circle at bottom,#311d23 0%,transparent 30%),
+  linear-gradient(to bottom,#07101d,#0a1424,#050b14);
+
+  color:white;
+  font-family:"Be Vietnam Pro",sans-serif;
+  position:relative;
+}
+
+/* ATMOSPHERE */
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+
+  background:
+  radial-gradient(circle at 20% 20%,
+  rgba(255,220,160,.08),
+  transparent 25%),
+
+  radial-gradient(circle at 80% 30%,
+  rgba(120,160,255,.08),
+  transparent 30%),
+
+  radial-gradient(circle at center,
+  rgba(255,255,255,.02),
+  transparent 60%);
+
+  z-index:-10;
+}
+
+/* SCROLLBAR */
+
+::-webkit-scrollbar{
+  width:10px;
+}
+
+::-webkit-scrollbar-track{
+  background:#09111d;
+}
+
+::-webkit-scrollbar-thumb{
+  background:linear-gradient(to bottom,var(--gold),#89622d);
+  border-radius:20px;
+}
+
+/* LOADER */
+
+.loader{
+  position:fixed;
+  inset:0;
+  background:#050b14;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  z-index:99999;
+  transition:1s;
+}
+
+.loader.hide{
+  opacity:0;
+  pointer-events:none;
+}
+
+.loader h1{
+  font-size:5rem;
+  font-family:"Ma Shan Zheng",cursive;
+  color:var(--gold2);
+  animation:breath 5s infinite;
+}
+
+.loader span{
+  margin-top:20px;
+  letter-spacing:4px;
+  opacity:.7;
+}
+
+@keyframes breath{
+
+  0%,100%{
+    transform:scale(1);
+  }
+
+  50%{
+    transform:scale(1.05);
+  }
+
+}
+
+/* MOON */
+
+.moon{
+  position:fixed;
+  top:90px;
+  right:8%;
+  width:320px;
+  height:320px;
+  border-radius:50%;
+
+  background:
+  radial-gradient(circle at 35% 35%,
+  #fff,
+  #edf1ff,
+  #bfcfff 70%,
+  transparent 75%);
+
+  box-shadow:
+  0 0 60px rgba(255,255,255,.5),
+  0 0 160px rgba(190,210,255,.25),
+  0 0 280px rgba(190,210,255,.15);
+
+  z-index:-2;
+
+  animation:moonFloat 8s ease-in-out infinite;
+}
+
+@keyframes moonFloat{
+
+  0%,100%{
+    transform:translateY(0px);
+  }
+
+  50%{
+    transform:translateY(-18px);
+  }
+
+}
+
+/* CLOUD */
+
+.cloud{
+  position:fixed;
+  width:700px;
+  height:240px;
+
+  background:
+  radial-gradient(circle,
+  rgba(255,255,255,.08),
+  transparent 70%);
+
+  filter:blur(45px);
+
+  z-index:-1;
+}
+
+.cloud.one{
+  top:8%;
+  left:-10%;
+  animation:cloudMove 50s linear infinite;
+}
+
+.cloud.two{
+  bottom:12%;
+  right:-10%;
+  animation:cloudMove 80s linear infinite reverse;
+}
+
+@keyframes cloudMove{
+
+  from{
+    transform:translateX(0);
+  }
+
+  to{
+    transform:translateX(180px);
+  }
+
+}
+
+/* PARTICLES */
+
+.particles{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:-1;
+}
+
+.particle{
+  position:absolute;
+  width:4px;
+  height:4px;
+  border-radius:50%;
+  background:white;
+  opacity:.5;
+  animation:floatParticle linear infinite;
+}
+
+@keyframes floatParticle{
+
+  from{
+    transform:translateY(100vh);
+    opacity:0;
+  }
+
+  20%{
+    opacity:.7;
+  }
+
+  to{
+    transform:translateY(-20vh);
+    opacity:0;
+  }
+
+}
+
+/* NAV */
+
+nav{
+  position:fixed;
+  top:0;
+  width:100%;
+
+  padding:22px 7%;
+
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  z-index:999;
+
+  backdrop-filter:blur(16px);
+
+  background:rgba(5,10,20,.3);
+
+  border-bottom:1px solid rgba(255,255,255,.05);
+}
+
+.logo{
+  font-size:2rem;
+  color:var(--gold2);
+  font-family:"Ma Shan Zheng",cursive;
+}
+
+nav ul{
+  display:flex;
+  gap:30px;
+  list-style:none;
+}
+
+nav a{
+  color:#eee;
+  text-decoration:none;
+  letter-spacing:2px;
+  position:relative;
+}
+
+nav a::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-8px;
+  width:0%;
+  height:1px;
+
+  background:
+  linear-gradient(to right,var(--gold),transparent);
+
+  transition:.4s;
+}
+
+nav a:hover::after{
+  width:100%;
+}
+
+/* HERO */
+
+.hero{
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  position:relative;
+  overflow:hidden;
+  padding:120px 7%;
+}
+
+.hero-content{
+  position:relative;
+  z-index:10;
+  text-align:center;
+  max-width:900px;
+}
+
+.hero-sub{
+  letter-spacing:6px;
+  color:var(--pink);
+  margin-bottom:25px;
+}
+
+.hero-title{
+  font-size:7rem;
+  line-height:1.1;
+  font-family:"Ma Shan Zheng",cursive;
+
+  text-shadow:
+  0 0 30px rgba(255,255,255,.4),
+  0 0 100px rgba(255,220,150,.25);
+
+  animation:breath 5s infinite;
+}
+
+.hero-title span{
+  color:var(--gold2);
+}
+
+.hero-desc{
+  margin-top:30px;
+  line-height:2;
+  color:#ddd;
+}
+
+.hero-buttons{
+  margin-top:50px;
+
+  display:flex;
+  justify-content:center;
+  gap:20px;
+
+  flex-wrap:wrap;
+}
+
+.btn{
+  padding:16px 32px;
+
+  border-radius:60px;
+
+  border:1px solid rgba(255,220,160,.3);
+
+  background:rgba(255,255,255,.04);
+
+  backdrop-filter:blur(10px);
+
+  color:white;
+  text-decoration:none;
+  letter-spacing:2px;
+
+  position:relative;
+  overflow:hidden;
+
+  transition:.5s;
+}
+
+.btn::before{
+  content:"";
+  position:absolute;
+  inset:0;
+
+  background:
+  linear-gradient(120deg,
+  transparent,
+  rgba(255,255,255,.15),
+  transparent);
+
+  transform:translateX(-100%);
+}
+
+.btn:hover::before{
+  animation:shine 1s;
+}
+
+.btn:hover{
+  transform:translateY(-5px);
+
+  box-shadow:
+  0 0 30px rgba(255,220,160,.25);
+}
+
+@keyframes shine{
+  to{
+    transform:translateX(100%);
+  }
+}
+
+/* SILK */
+
+.silk{
+  position:absolute;
+
+  width:850px;
+  height:850px;
+
+  border-radius:50%;
+
+  border:2px solid rgba(255,220,160,.05);
+
+  animation:spin 30s linear infinite;
+}
+
+.silk::before{
+  content:"";
+
+  position:absolute;
+  inset:90px;
+
+  border-radius:50%;
+
+  border:1px solid rgba(255,220,160,.08);
+}
+
+@keyframes spin{
+
+  from{
+    transform:rotate(0deg);
+  }
+
+  to{
+    transform:rotate(360deg);
+  }
+
+}
+
+/* DEER */
+
+.deer-wrapper{
+  position:absolute;
+
+  bottom:60px;
+  left:50%;
+
+  transform:translateX(-50%);
+
+  width:500px;
+  height:500px;
+
+  z-index:2;
+
+  animation:deerFloat 6s ease-in-out infinite;
+}
+
+.deer-glow{
+  position:absolute;
+  inset:0;
+
+  background:
+  radial-gradient(circle,
+  rgba(255,220,160,.18),
+  transparent 70%);
+
+  filter:blur(40px);
+}
+
+.deer-body{
+  position:absolute;
+
+  width:240px;
+  height:120px;
+
+  background:
+  linear-gradient(145deg,#fffdf7,#f4dfc3);
+
+  border-radius:50%;
+
+  top:220px;
+  left:130px;
+}
+
+.deer-neck{
+  position:absolute;
+
+  width:60px;
+  height:130px;
+
+  background:
+  linear-gradient(to bottom,#fffdf8,#edd7b2);
+
+  border-radius:40px;
+
+  left:260px;
+  top:130px;
+
+  transform:rotate(-20deg);
+}
+
+.deer-head{
+  position:absolute;
+
+  width:110px;
+  height:90px;
+
+  background:
+  linear-gradient(145deg,#fffdf8,#efd9b7);
+
+  border-radius:50%;
+
+  top:80px;
+  left:260px;
+}
+
+.deer-leg{
+  position:absolute;
+
+  width:16px;
+  height:130px;
+
+  background:
+  linear-gradient(to bottom,#f6e6c7,#d5b78f);
+
+  border-radius:20px;
+
+  top:310px;
+}
+
+.leg1{ left:170px; }
+.leg2{ left:220px; }
+.leg3{ left:300px; }
+.leg4{ left:350px; }
+
+.deer-antler{
+  position:absolute;
+
+  width:6px;
+  height:90px;
+
+  background:#f4deb5;
+
+  top:10px;
+
+  border-radius:20px;
+}
+
+.deer-antler.left{
+  left:300px;
+  transform:rotate(-25deg);
+}
+
+.deer-antler.right{
+  left:340px;
+  transform:rotate(20deg);
+}
+
+/* SILK RIBBON */
+
+.silk-ribbon{
+  position:absolute;
+
+  border-radius:50%;
+
+  border:2px solid rgba(255,180,180,.35);
+}
+
+.ribbon1{
+  width:260px;
+  height:120px;
+
+  left:40px;
+  top:180px;
+
+  animation:ribbonFloat 8s ease-in-out infinite;
+}
+
+.ribbon2{
+  width:320px;
+  height:140px;
+
+  left:120px;
+  top:150px;
+
+  animation:ribbonFloat 10s ease-in-out infinite reverse;
+}
+
+.ribbon3{
+  width:380px;
+  height:160px;
+
+  left:60px;
+  top:130px;
+
+  animation:ribbonFloat 12s ease-in-out infinite;
+}
+
+@keyframes ribbonFloat{
+
+  0%,100%{
+    transform:
+    rotate(0deg)
+    translateY(0px);
+  }
+
+  50%{
+    transform:
+    rotate(6deg)
+    translateY(-15px);
+  }
+
+}
+
+@keyframes deerFloat{
+
+  0%,100%{
+    transform:
+    translateX(-50%)
+    translateY(0px);
+  }
+
+  50%{
+    transform:
+    translateX(-50%)
+    translateY(-20px);
+  }
+
+}
+
+/* SECTION */
+
+section{
+  padding:140px 8%;
+  position:relative;
+}
+
+.section-title{
+  text-align:center;
+  margin-bottom:80px;
+}
+
+.section-title h2{
+  font-size:4rem;
+  color:var(--gold2);
+  font-family:"Ma Shan Zheng",cursive;
+}
+
+.section-title p{
+  margin-top:10px;
+  letter-spacing:4px;
+  color:#ccc;
+}
+
+/* ABOUT */
+
+.about-box{
+  max-width:1000px;
+  margin:auto;
+
+  padding:80px;
+
+  border:1px solid rgba(255,220,160,.15);
+
+  background:rgba(255,255,255,.03);
+
+  backdrop-filter:blur(16px);
+}
+
+.about-box h3{
+  font-size:3rem;
+  margin-bottom:30px;
+  color:var(--gold2);
+}
+
+.about-box p{
+  line-height:2.3;
+  color:#ddd;
+}
+
+/* SKILLS */
+
+.skills-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:35px;
+}
+
+.skill-card{
+  padding:50px 35px;
+
+  background:rgba(255,255,255,.03);
+
+  border:1px solid rgba(255,220,160,.12);
+
+  backdrop-filter:blur(14px);
+
+  transition:.5s;
+}
+
+.skill-card:hover{
+  transform:translateY(-10px);
+
+  box-shadow:
+  0 0 40px rgba(255,220,160,.15);
+}
+
+.skill-card h4{
+  color:var(--gold2);
+  margin-bottom:15px;
+  font-size:1.5rem;
+}
+
+.skill-card p{
+  line-height:1.9;
+  color:#ddd;
+}
+
+/* TIMELINE */
+
+.timeline{
+  max-width:1000px;
+  margin:auto;
+  position:relative;
+}
+
+.timeline::before{
+  content:"";
+
+  position:absolute;
+  left:50%;
+
+  transform:translateX(-50%);
+
+  width:2px;
+  height:100%;
+
+  background:
+  linear-gradient(to bottom,
+  transparent,
+  var(--gold),
+  transparent);
+}
+
+.timeline-item{
+  width:50%;
+  padding:40px;
+  position:relative;
+}
+
+.timeline-item:nth-child(odd){
+  left:0;
+  text-align:right;
+}
+
+.timeline-item:nth-child(even){
+  left:50%;
+}
+
+.timeline-card{
+  padding:35px;
+
+  background:rgba(255,255,255,.03);
+
+  border:1px solid rgba(255,220,160,.12);
+
+  backdrop-filter:blur(12px);
+}
+
+.timeline-card h4{
+  color:var(--gold2);
+  margin-bottom:15px;
+}
+
+/* GALLERY */
+
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:35px;
+}
+
+.gallery-item{
+  position:relative;
+  overflow:hidden;
+  border:1px solid rgba(255,220,160,.15);
+}
+
+.art-card{
+  width:100%;
+  height:420px;
+
+  background:
+
+  radial-gradient(circle at top,
+  rgba(255,220,160,.25),
+  transparent 30%),
+
+  linear-gradient(
+  145deg,
+  #162238,
+  #09111f,
+  #281b1f
+  );
+
+  position:relative;
+}
+
+.art-card::before{
+  content:"";
+
+  position:absolute;
+  inset:20px;
+
+  border:1px solid rgba(255,220,160,.15);
+}
+
+.gallery-overlay{
+  position:absolute;
+  inset:0;
+
+  background:
+  linear-gradient(to top,
+  rgba(0,0,0,.8),
+  transparent);
+
+  display:flex;
+  align-items:flex-end;
+
+  padding:30px;
+}
+
+.gallery-overlay h4{
+  font-size:1.5rem;
+}
+
+/* FOOTER */
+
+footer{
+  padding:100px 8%;
+  text-align:center;
+
+  border-top:1px solid rgba(255,255,255,.05);
+}
+
+footer h3{
+  font-size:3rem;
+  color:var(--gold2);
+  font-family:"Ma Shan Zheng",cursive;
+  margin-bottom:20px;
+}
+
+footer p{
+  line-height:2;
+  color:#ccc;
+}
+
+/* PETALS */
 
 .petal{
   position:fixed;
   top:-10%;
-  width:22px;
-  height:22px;
+
   pointer-events:none;
   z-index:100;
+
   opacity:.8;
 
   background:
-  radial-gradient(circle at 30% 30%, #ffd7e2 0%, #f7b8c8 45%, #e38aa2 100%);
+  radial-gradient(circle at 30% 30%,
+  #ffd7e2 0%,
+  #f7b8c8 45%,
+  #e38aa2 100%);
 
   border-radius:
   70% 30% 70% 30% /
@@ -679,9 +901,9 @@
 
   0%{
     transform:
-      translateY(-10vh)
-      translateX(0px)
-      rotate(0deg);
+    translateY(-10vh)
+    translateX(0px)
+    rotate(0deg);
 
     opacity:0;
   }
@@ -692,443 +914,483 @@
 
   50%{
     transform:
-      translateY(50vh)
-      translateX(40px)
-      rotate(180deg);
+    translateY(50vh)
+    translateX(40px)
+    rotate(180deg);
   }
 
   100%{
     transform:
-      translateY(120vh)
-      translateX(-60px)
-      rotate(360deg);
+    translateY(120vh)
+    translateX(-60px)
+    rotate(360deg);
 
     opacity:0;
   }
 
 }
 
-    /* RESPONSIVE */
+/* RESPONSIVE */
 
-    @media(max-width:992px){
+@media(max-width:992px){
 
-      .hero-title{
-        font-size:5rem;
-      }
+  .hero-title{
+    font-size:5rem;
+  }
 
-      .deer{
-        width:600px;
-      }
+  .timeline::before{
+    left:20px;
+  }
 
-      .timeline::before{
-        left:20px;
-      }
+  .timeline-item{
+    width:100%;
+    left:0 !important;
+    padding-left:60px;
+    text-align:left !important;
+  }
 
-      .timeline-item{
-        width:100%;
-        left:0 !important;
-        padding-left:60px;
-        text-align:left !important;
-      }
-    }
+}
 
-    @media(max-width:768px){
+@media(max-width:768px){
 
-      nav{
-        flex-direction:column;
-        gap:20px;
-      }
+  nav{
+    flex-direction:column;
+    gap:20px;
+  }
 
-      nav ul{
-        flex-wrap:wrap;
-        justify-content:center;
-      }
+  nav ul{
+    flex-wrap:wrap;
+    justify-content:center;
+  }
 
-      .hero-title{
-        font-size:4rem;
-      }
+  .hero-title{
+    font-size:4rem;
+  }
 
-      .deer{
-        width:450px;
-      }
+  .deer-wrapper{
+    transform:
+    translateX(-50%)
+    scale(.7);
+  }
 
-      .about-box{
-        padding:40px 30px;
-      }
+  .moon{
+    width:200px;
+    height:200px;
+  }
 
-      .section-title h2{
-        font-size:3rem;
-      }
+  .section-title h2{
+    font-size:3rem;
+  }
 
-      .moon{
-        width:180px;
-        height:180px;
-      }
-    }
+  .about-box{
+    padding:40px 30px;
+  }
 
-    @media(max-width:500px){
+}
 
-      .hero-title{
-        font-size:3rem;
-      }
+@media(max-width:500px){
 
-      .hero-buttons{
-        flex-direction:column;
-      }
+  .hero-title{
+    font-size:3rem;
+  }
 
-      .deer{
-        width:340px;
-      }
-    }
+  .hero-buttons{
+    flex-direction:column;
+  }
 
-  </style>
+  .deer-wrapper{
+    transform:
+    translateX(-50%)
+    scale(.55);
+  }
+
+}
+
+</style>
 </head>
 
 <body>
 
-  <!-- LOADER -->
-  <div class="loader" id="loader">
-    <h1>夢 飛 天</h1>
-    <span>LOADING DUNHUANG WORLD...</span>
+<!-- LOADER -->
+
+<div class="loader" id="loader">
+  <h1>夢 飛 天</h1>
+  <span>LOADING DUNHUANG WORLD...</span>
+</div>
+
+<!-- MOON -->
+
+<div class="moon"></div>
+
+<!-- CLOUD -->
+
+<div class="cloud one"></div>
+<div class="cloud two"></div>
+
+<!-- PARTICLES -->
+
+<div class="particles" id="particles"></div>
+
+<!-- NAV -->
+
+<nav>
+
+  <div class="logo">
+    Mộng Phi Thiên
   </div>
 
-  <!-- MOON -->
-  <div class="moon"></div>
+  <ul>
+    <li><a href="#hero">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#timeline">Timeline</a></li>
+    <li><a href="#products">Products</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
 
-  <!-- CLOUD -->
-  <div class="cloud one"></div>
-  <div class="cloud two"></div>
+</nav>
 
-  <!-- PARTICLES -->
-  <div class="particles" id="particles"></div>
+<!-- HERO -->
 
-  <!-- NAV -->
-  <nav>
-    <div class="logo">Mộng Phi Thiên</div>
+<section class="hero" id="hero">
 
-    <ul>
-      <li><a href="#hero">Home</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#timeline">Timeline</a></li>
-      <li><a href="#products">Products</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </nav>
+<div class="silk"></div>
 
-  <!-- HERO -->
-  <section class="hero" id="hero">
+<div class="deer-wrapper">
 
-    <div class="silk"></div>
+  <div class="deer-glow"></div>
 
-    <img
-      class="deer"
-      src="https://images.unsplash.com/photo-1517849845537-4d257902454a?q=80&w=1200&auto=format&fit=crop"
-      alt="Dunhuang Deer"
-    />
+  <div class="deer-body"></div>
 
-    <div class="hero-content">
+  <div class="deer-neck"></div>
 
-      <div class="hero-sub">
-        DUNHUANG ARTISTIC PORTFOLIO
-      </div>
+  <div class="deer-head"></div>
 
-      <h1 class="hero-title">
-        Mộng <span>Phi Thiên</span>
-      </h1>
+  <div class="deer-leg leg1"></div>
+  <div class="deer-leg leg2"></div>
+  <div class="deer-leg leg3"></div>
+  <div class="deer-leg leg4"></div>
 
-      <p class="hero-desc">
-        Graphic Designer • Digital Designer • Digital Artist • Multimedia Artist • Book Cover Illustrator
-      </p>
+  <div class="deer-antler left"></div>
+  <div class="deer-antler right"></div>
 
-      <div class="hero-buttons">
-        <a href="#about" class="btn">Khởi Hành</a>
-        <a href="#products" class="btn">Khám Phá Tác Phẩm</a>
-      </div>
+  <div class="silk-ribbon ribbon1"></div>
+  <div class="silk-ribbon ribbon2"></div>
+  <div class="silk-ribbon ribbon3"></div>
 
+</div>
+
+<div class="hero-content">
+
+  <div class="hero-sub">
+    DUNHUANG ARTISTIC PORTFOLIO
+  </div>
+
+  <h1 class="hero-title">
+    Mộng <span>Phi Thiên</span>
+  </h1>
+
+  <p class="hero-desc">
+    Graphic Designer • Digital Designer • Digital Artist • Multimedia Artist • Book Cover Illustrator
+  </p>
+
+  <div class="hero-buttons">
+    <a href="#about" class="btn">Khởi Hành</a>
+    <a href="#products" class="btn">Khám Phá</a>
+  </div>
+
+</div>
+
+</section>
+
+<!-- ABOUT -->
+
+<section id="about">
+
+<div class="section-title">
+  <h2>Vô Thanh Mộng Cảnh</h2>
+  <p>ABOUT THE ARTIST</p>
+</div>
+
+<div class="about-box reveal">
+
+  <h3>Nguyen Phu Cuong (Yuue)</h3>
+
+  <p>
+    “Tô sắc cho những giấc mộng không lời,
+    nơi sắc màu biết thở và tưởng tượng được tự do.”
+    <br><br>
+
+    Tôi theo đuổi vẻ đẹp giữa cổ phong và điện ảnh,
+    nơi nghệ thuật không chỉ để nhìn ngắm,
+    mà còn để cảm nhận như một cơn gió lướt qua miền ký ức.
+  </p>
+
+</div>
+
+</section>
+
+<!-- SKILLS -->
+
+<section id="skills">
+
+<div class="section-title">
+  <h2>Thiên Công Nghệ Thuật</h2>
+  <p>SKILLS</p>
+</div>
+
+<div class="skills-grid">
+
+  <div class="skill-card reveal">
+    <h4>Photoshop</h4>
+    <p>Cinematic photo manipulation và fantasy artwork.</p>
+  </div>
+
+  <div class="skill-card reveal">
+    <h4>Illustrator</h4>
+    <p>Ancient ornament design và visual identity.</p>
+  </div>
+
+  <div class="skill-card reveal">
+    <h4>Nhiếp Ảnh</h4>
+    <p>Atmospheric lighting và storytelling composition.</p>
+  </div>
+
+  <div class="skill-card reveal">
+    <h4>Vocal Music</h4>
+    <p>Artistic rhythm cho multimedia experience.</p>
+  </div>
+
+</div>
+
+</section>
+
+<!-- TIMELINE -->
+
+<section id="timeline">
+
+<div class="section-title">
+  <h2>Hành Trình Lưu Ly</h2>
+  <p>TIMELINE</p>
+</div>
+
+<div class="timeline">
+
+  <div class="timeline-item reveal">
+    <div class="timeline-card">
+      <h4>2023</h4>
+      <p>Vừa đi học vừa đi làm phục vụ nhà hàng tiệc cưới.</p>
+    </div>
+  </div>
+
+  <div class="timeline-item reveal">
+    <div class="timeline-card">
+      <h4>Tháng 1 - 2024</h4>
+      <p>Đi làm nhân viên sân cầu lông.</p>
+    </div>
+  </div>
+
+  <div class="timeline-item reveal">
+    <div class="timeline-card">
+      <h4>Tháng 3 - 2024</h4>
+      <p>Làm giám sát camera cho chung cư Gamuda Land.</p>
+    </div>
+  </div>
+
+  <div class="timeline-item reveal">
+    <div class="timeline-card">
+      <h4>Tháng 6 - 2024</h4>
+      <p>Làm công nhân tô vẽ cho xưởng gia công gốm sứ.</p>
+    </div>
+  </div>
+
+</div>
+
+</section>
+
+<!-- PRODUCTS -->
+
+<section id="products">
+
+<div class="section-title">
+  <h2>Thần Mộng Tàng Phẩm</h2>
+  <p>PERSONAL PRODUCTS</p>
+</div>
+
+<div class="gallery">
+
+  <div class="gallery-item reveal">
+
+    <div class="art-card"></div>
+
+    <div class="gallery-overlay">
+      <h4>Logo Cá Nhân</h4>
     </div>
 
-  </section>
+  </div>
 
-  <!-- ABOUT -->
-  <section id="about">
+  <div class="gallery-item reveal">
 
-    <div class="section-title">
-      <h2>Vô Thanh Mộng Cảnh</h2>
-      <p>ABOUT THE ARTIST</p>
+    <div class="art-card"></div>
+
+    <div class="gallery-overlay">
+      <h4>Name Card</h4>
     </div>
 
-    <div class="about-box reveal">
+  </div>
 
-      <h3>
-        Nguyen Phu Cuong (Yuue)
-      </h3>
+  <div class="gallery-item reveal">
 
-      <p>
-        “Tô sắc cho những giấc mộng không lời,
-        nơi sắc màu biết thở và tưởng tượng được tự do.”
-        <br><br>
+    <div class="art-card"></div>
 
-        Tôi theo đuổi vẻ đẹp giữa cổ phong và điện ảnh,
-        nơi nghệ thuật không chỉ để nhìn ngắm,
-        mà còn để cảm nhận như một cơn gió lướt qua miền ký ức.
-      </p>
-
+    <div class="gallery-overlay">
+      <h4>Bookmark</h4>
     </div>
 
-  </section>
+  </div>
 
-  <!-- SKILLS -->
-  <section id="skills">
+</div>
 
-    <div class="section-title">
-      <h2>Thiên Công Nghệ Thuật</h2>
-      <p>SKILLS</p>
-    </div>
+</section>
 
-    <div class="skills-grid">
+<!-- FOOTER -->
 
-      <div class="skill-card reveal">
-        <div class="skill-icon"></div>
-          <h4>Photoshop</h4>
-        <p>
-          Cinematic photo manipulation, fantasy artwork,
-          concept composition.
-        </p>
-      </div>
+<footer id="contact">
 
-      <div class="skill-card reveal">
-        <div class="skill-icon"></div>
-        <h4>Illustrator</h4>
-        <p>
-          Ancient ornament design, branding system,
-          visual identity.
-        </p>
-      </div>
+<h3>Mộng Phi Thiên</h3>
 
-      <div class="skill-card reveal">
-        <div class="skill-icon"></div>
-        <h4>Nhiếp Ảnh</h4>
-        <p>
-          Atmospheric lighting, cinematic frame,
-          storytelling composition.
-        </p>
-      </div>
+<p>
+Nguyen Phu Cuong (Yuue)
+<br><br>
 
-      <div class="skill-card reveal">
-        <div class="skill-icon"></div>
-        <h4>Vocal Music</h4>
-        <p>
-          Emotional performance and artistic rhythm
-          for multimedia experience.
-        </p>
-      </div>
+Graphic Designer • Digital Artist • Multimedia Artist
 
-    </div>
+<br><br>
 
-  </section>
+“Nơi ánh trăng ngủ yên trên những dải lụa cổ phong.”
+</p>
 
-  <!-- TIMELINE -->
-  <section id="timeline">
+</footer>
 
-    <div class="section-title">
-      <h2>Hành Trình Lưu Ly</h2>
-      <p>TIMELINE</p>
-    </div>
+<script>
 
-    <div class="timeline">
+/* LOADER */
 
-      <div class="timeline-item reveal">
-        <div class="timeline-card">
-          <h4>2023</h4>
-          <p>
-            Vừa đi học vừa đi làm phục vụ nhà hàng tiệc cưới.
-          </p>
-        </div>
-      </div>
+window.addEventListener("load",()=>{
 
-      <div class="timeline-item reveal">
-        <div class="timeline-card">
-          <h4>Tháng 1 - 2024</h4>
-          <p>
-            Đi làm nhân viên sân cầu lông.
-          </p>
-        </div>
-      </div>
+  setTimeout(()=>{
+    document.getElementById("loader")
+    .classList.add("hide");
+  },2200);
 
-      <div class="timeline-item reveal">
-        <div class="timeline-card">
-          <h4>Tháng 3 - 2024</h4>
-          <p>
-            Làm giám sát camera cho chung cư Gamuda Land.
-          </p>
-        </div>
-      </div>
+});
 
-      <div class="timeline-item reveal">
-        <div class="timeline-card">
-          <h4>Tháng 6 - 2024</h4>
-          <p>
-            Làm công nhân tô vẽ cho xưởng gia công gốm sứ.
-          </p>
-        </div>
-      </div>
+/* PARTICLES */
 
-    </div>
+const particles =
+document.getElementById("particles");
 
-  </section>
+for(let i=0;i<80;i++){
 
-  <!-- PRODUCTS -->
-  <section id="products">
+  const p =
+  document.createElement("div");
 
-    <div class="section-title">
-      <h2>Thần Mộng Tàng Phẩm</h2>
-      <p>PERSONAL PRODUCTS</p>
-    </div>
+  p.classList.add("particle");
 
-    <div class="gallery">
+  p.style.left =
+  Math.random()*100+"%";
 
-      <div class="gallery-item reveal">
-        <img src="https://images.unsplash.com/photo-1516321497487-e288fb19713f?q=80&w=1200&auto=format&fit=crop">
-        <div class="gallery-overlay">
-          <h4>Logo Cá Nhân</h4>
-        </div>
-      </div>
+  p.style.animationDuration =
+  10 + Math.random()*20 + "s";
 
-      <div class="gallery-item reveal">
-        <img src="https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?q=80&w=1200&auto=format&fit=crop">
-        <div class="gallery-overlay">
-          <h4>Name Card</h4>
-        </div>
-      </div>
+  p.style.animationDelay =
+  Math.random()*10 + "s";
 
-      <div class="gallery-item reveal">
-        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop">
-        <div class="gallery-overlay">
-          <h4>Bookmark</h4>
-        </div>
-      </div>
+  const size =
+  Math.random()*4+2;
 
-    </div>
+  p.style.width=size+"px";
+  p.style.height=size+"px";
 
-  </section>
+  particles.appendChild(p);
+}
 
-  <!-- FOOTER -->
-  <footer id="contact">
+/* PETALS */
 
-    <h3>Mộng Phi Thiên</h3>
+for(let i=0;i<25;i++){
 
-    <p>
-      Nguyen Phu Cuong (Yuue)
-      <br><br>
-      Graphic Designer • Digital Artist • Multimedia Artist
-      <br><br>
-      “Nơi ánh trăng ngủ yên trên những dải lụa cổ phong.”
-    </p>
-
-  </footer>
-
-  <script>
-
-    // LOADER
-
-    window.addEventListener("load",()=>{
-
-      setTimeout(()=>{
-        document.getElementById("loader").classList.add("hide");
-      },2200);
-
-    });
-
-    // PARTICLES
-
-    const particles = document.getElementById("particles");
-
-    for(let i=0;i<80;i++){
-
-      const p = document.createElement("div");
-      p.classList.add("particle");
-
-      p.style.left = Math.random()*100+"%";
-      p.style.animationDuration = 10 + Math.random()*20 + "s";
-      p.style.animationDelay = Math.random()*10 + "s";
-
-      const size = Math.random()*4+2;
-
-      p.style.width=size+"px";
-      p.style.height=size+"px";
-
-      particles.appendChild(p);
-    }
-
-   // PETALS
-
-for(let i = 0; i < 25; i++){
-
-  const petal = document.createElement("div");
+  const petal =
+  document.createElement("div");
 
   petal.classList.add("petal");
 
   petal.style.left =
-    Math.random() * 100 + "%";
+  Math.random()*100+"%";
 
   petal.style.animationDuration =
-    10 + Math.random() * 20 + "s";
+  10 + Math.random()*20 + "s";
 
   petal.style.animationDelay =
-    Math.random() * 10 + "s";
+  Math.random()*10 + "s";
 
   const size =
-    10 + Math.random() * 18;
+  10 + Math.random()*18;
 
-  petal.style.width = size + "px";
-  petal.style.height = size + "px";
+  petal.style.width =
+  size + "px";
+
+  petal.style.height =
+  size + "px";
 
   document.body.appendChild(petal);
 }
-    // GSAP
 
-    gsap.registerPlugin(ScrollTrigger);
+/* GSAP */
 
-    gsap.utils.toArray(".reveal").forEach((el)=>{
+gsap.registerPlugin(ScrollTrigger);
 
-      gsap.from(el,{
-        opacity:0,
-        y:100,
-        duration:1.5,
-        ease:"power3.out",
-        scrollTrigger:{
-          trigger:el,
-          start:"top 85%",
-        }
-      });
+gsap.utils.toArray(".reveal")
+.forEach((el)=>{
 
-    });
+  gsap.from(el,{
+    opacity:0,
+    y:100,
+    duration:1.5,
+    ease:"power3.out",
 
-    // PARALLAX
+    scrollTrigger:{
+      trigger:el,
+      start:"top 85%",
+    }
+  });
 
-    window.addEventListener("mousemove",(e)=>{
+});
 
-      const x = (window.innerWidth/2 - e.clientX)/40;
-      const y = (window.innerHeight/2 - e.clientY)/40;
+/* PARALLAX */
 
-      gsap.to(".moon",{
-        x,
-        y,
-        duration:2
-      });
+window.addEventListener("mousemove",(e)=>{
 
-      gsap.to(".deer",{
-        x:-x,
-        y:-y,
-        duration:2
-      });
+  const x =
+  (window.innerWidth/2 - e.clientX)/40;
 
-    });
+  const y =
+  (window.innerHeight/2 - e.clientY)/40;
 
-  </script>
+  gsap.to(".moon",{
+    x,
+    y,
+    duration:2
+  });
+
+  gsap.to(".deer-wrapper",{
+    x:-x,
+    y:-y,
+    duration:2
+  });
+
+});
+
+</script>
 
 </body>
 </html>
-
-
