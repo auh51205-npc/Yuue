@@ -1061,27 +1061,31 @@
       particles.appendChild(p);
     }
 
-    // PETALS
+   // PETALS
 
-    for(let i=0;i<25;i++){
+for(let i = 0; i < 25; i++){
 
-      const petal=document.createElement("img");
+  const petal = document.createElement("div");
 
-      petal.src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Cherry_Blossom_Petal.svg/1200px-Cherry_Blossom_Petal.svg.png";
+  petal.classList.add("petal");
 
-      petal.classList.add("petal");
+  petal.style.left =
+    Math.random() * 100 + "%";
 
-      petal.style.left=Math.random()*100+"%";
+  petal.style.animationDuration =
+    10 + Math.random() * 20 + "s";
 
-      petal.style.animationDuration=10+Math.random()*20+"s";
+  petal.style.animationDelay =
+    Math.random() * 10 + "s";
 
-      petal.style.animationDelay=Math.random()*10+"s";
+  const size =
+    10 + Math.random() * 18;
 
-      petal.style.width=10+Math.random()*18+"px";
+  petal.style.width = size + "px";
+  petal.style.height = size + "px";
 
-      document.body.appendChild(petal);
-    }
-
+  document.body.appendChild(petal);
+}
     // GSAP
 
     gsap.registerPlugin(ScrollTrigger);
