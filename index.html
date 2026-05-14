@@ -2,77 +2,64 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mộng Phi Thiên | Yuue Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mộng Phi Thiên | Nguyen Phu Cuong</title>
 
-  <!-- GOOGLE FONTS -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- SEO -->
+  <meta name="description" content="Portfolio nghệ thuật Đôn Hoàng Trung Hoa cổ đại của Nguyen Phu Cuong (Yuue)." />
+  <meta name="keywords" content="Dunhuang, Portfolio, Chinese Ancient Art, Graphic Designer, Multimedia Artist" />
 
-  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&family=Cinzel:wght@400;500;700&family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@300;400;500;600;700&family=ZCOOL+XiaoWei&display=swap" rel="stylesheet">
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;700&family=Cinzel:wght@400;600;700&family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
 
   <!-- GSAP -->
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
   <style>
+
+    :root{
+      --gold:#e2b96b;
+      --gold2:#ffdf9c;
+      --night:#06111f;
+      --night2:#09192f;
+      --moon:#d9f3ff;
+      --red:#8f3a36;
+      --pink:#f5b9c7;
+      --orange:#d88f4b;
+      --white:#ffffff;
+      --fog:rgba(255,255,255,0.06);
+    }
+
     *{
       margin:0;
       padding:0;
       box-sizing:border-box;
-    }
-
-    :root{
-      --bg:#07101f;
-      --bg2:#0c1a30;
-      --gold:#d7b56d;
-      --gold2:#f4d9a2;
-      --moon:#f4f6ff;
-      --red:#9f5b58;
-      --pink:#f0c3cb;
-      --mist:rgba(255,255,255,.06);
-      --line:rgba(255,230,170,.18);
-    }
-
-    html{
       scroll-behavior:smooth;
     }
 
     body{
-      overflow-x:hidden;
       background:
-      radial-gradient(circle at top, rgba(80,110,180,.18), transparent 40%),
-      radial-gradient(circle at bottom, rgba(255,160,120,.08), transparent 30%),
-      linear-gradient(to bottom,#07101f,#0c1a30,#060b14);
+      radial-gradient(circle at top, rgba(28,47,89,.7), transparent 30%),
+      linear-gradient(to bottom,#02060d,#08111f,#0b1830,#050912);
       color:white;
-      font-family:"Be Vietnam Pro",sans-serif;
-      position:relative;
+      overflow-x:hidden;
+      font-family:'Be Vietnam Pro',sans-serif;
     }
 
     body::before{
-      content:"";
+      content:'';
       position:fixed;
       inset:0;
       background:
-      url("https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1920&auto=format&fit=crop")
-      center/cover;
-      opacity:.08;
-      z-index:-5;
-      filter:blur(2px);
-    }
-
-    /* SCROLLBAR */
-    ::-webkit-scrollbar{
-      width:10px;
-    }
-
-    ::-webkit-scrollbar-track{
-      background:#08111d;
-    }
-
-    ::-webkit-scrollbar-thumb{
-      background:linear-gradient(to bottom,var(--gold),#8d6a2d);
-      border-radius:30px;
+      radial-gradient(circle at 20% 20%, rgba(255,215,130,.08), transparent 20%),
+      radial-gradient(circle at 80% 30%, rgba(255,170,140,.06), transparent 20%),
+      radial-gradient(circle at 50% 80%, rgba(255,255,255,.04), transparent 20%);
+      pointer-events:none;
+      z-index:-2;
     }
 
     /* LOADER */
@@ -80,198 +67,78 @@
     .loader{
       position:fixed;
       inset:0;
-      background:#050b14;
+      background:#02060d;
       display:flex;
       justify-content:center;
       align-items:center;
-      z-index:99999;
-      flex-direction:column;
-      transition:1s;
-    }
-
-    .loader.hide{
-      opacity:0;
-      pointer-events:none;
+      z-index:9999;
+      transition:1.5s;
     }
 
     .loader h1{
-      font-family:"Ma Shan Zheng",cursive;
+      font-family:'Ma Shan Zheng',cursive;
       font-size:5rem;
       color:var(--gold2);
-      letter-spacing:8px;
-      text-shadow:0 0 30px rgba(255,220,150,.5);
-      animation:breath 4s infinite;
-    }
-
-    .loader span{
-      margin-top:15px;
-      opacity:.7;
-      letter-spacing:4px;
-      color:#ddd;
+      text-shadow:0 0 20px rgba(255,214,140,.8);
+      animation:breath 3s infinite ease-in-out;
     }
 
     @keyframes breath{
-      0%,100%{
-        transform:scale(1);
-        opacity:1;
-      }
-      50%{
-        transform:scale(1.05);
-        opacity:.8;
-      }
-    }
-
-    /* MOON */
-
-    .moon{
-      position:fixed;
-      top:100px;
-      right:7%;
-      width:300px;
-      height:300px;
-      border-radius:50%;
-      background:
-      radial-gradient(circle at 35% 35%,#fff,#eef1ff,#cad5ff 70%,transparent 75%);
-      box-shadow:
-      0 0 80px rgba(255,255,255,.4),
-      0 0 180px rgba(194,209,255,.3),
-      0 0 300px rgba(194,209,255,.15);
-      opacity:.9;
-      z-index:-2;
-      animation:moonFloat 8s ease-in-out infinite;
-    }
-
-    @keyframes moonFloat{
-      0%,100%{
-        transform:translateY(0px);
-      }
-      50%{
-        transform:translateY(-20px);
-      }
-    }
-
-    /* CLOUDS */
-
-    .cloud{
-      position:fixed;
-      width:700px;
-      height:220px;
-      background:
-      radial-gradient(circle, rgba(255,255,255,.08), transparent 70%);
-      filter:blur(40px);
-      z-index:-1;
-      animation:cloudMove 50s linear infinite;
-    }
-
-    .cloud.one{
-      top:10%;
-      left:-10%;
-    }
-
-    .cloud.two{
-      bottom:15%;
-      right:-10%;
-      animation-duration:70s;
-    }
-
-    @keyframes cloudMove{
-      from{
-        transform:translateX(0);
-      }
-      to{
-        transform:translateX(200px);
-      }
-    }
-
-    /* PARTICLES */
-
-    .particles{
-      position:fixed;
-      inset:0;
-      overflow:hidden;
-      z-index:-1;
-      pointer-events:none;
-    }
-
-    .particle{
-      position:absolute;
-      width:4px;
-      height:4px;
-      border-radius:50%;
-      background:white;
-      opacity:.5;
-      animation:floatParticle linear infinite;
-    }
-
-    @keyframes floatParticle{
-      from{
-        transform:translateY(100vh);
-        opacity:0;
-      }
-      20%{
-        opacity:.7;
-      }
-      to{
-        transform:translateY(-20vh);
-        opacity:0;
-      }
+      0%,100%{transform:scale(1);opacity:1;}
+      50%{transform:scale(1.05);opacity:.8;}
     }
 
     /* NAV */
 
     nav{
       position:fixed;
-      top:0;
       width:100%;
-      padding:24px 7%;
+      top:0;
+      left:0;
+      z-index:999;
+      padding:18px 5%;
       display:flex;
       justify-content:space-between;
       align-items:center;
-      z-index:999;
-      backdrop-filter:blur(12px);
-      background:rgba(5,10,20,.28);
-      border-bottom:1px solid rgba(255,255,255,.06);
+      backdrop-filter:blur(14px);
+      background:rgba(2,8,18,.35);
+      border-bottom:1px solid rgba(255,220,180,.08);
     }
 
     .logo{
-      font-family:"Ma Shan Zheng",cursive;
+      font-family:'Ma Shan Zheng',cursive;
       font-size:2rem;
       color:var(--gold2);
-      text-shadow:0 0 20px rgba(255,220,150,.5);
+      letter-spacing:3px;
+      text-shadow:0 0 10px rgba(255,211,132,.6);
     }
 
     nav ul{
       display:flex;
-      gap:30px;
+      gap:20px;
       list-style:none;
+      flex-wrap:wrap;
     }
 
-    nav a{
+    nav ul li a{
+      color:#fff;
       text-decoration:none;
-      color:#eee;
-      font-size:.95rem;
       position:relative;
+      padding:10px 18px;
+      border:1px solid rgba(255,220,180,.1);
+      border-radius:999px;
+      overflow:hidden;
       transition:.4s;
-      letter-spacing:2px;
+      font-size:.92rem;
     }
 
-    nav a::after{
-      content:"";
-      position:absolute;
-      left:0;
-      bottom:-8px;
-      width:0%;
-      height:1px;
-      background:linear-gradient(to right,var(--gold),transparent);
-      transition:.4s;
-    }
-
-    nav a:hover{
-      color:var(--gold2);
-    }
-
-    nav a:hover::after{
-      width:100%;
+    nav ul li a:hover{
+      color:#000;
+      background:linear-gradient(45deg,var(--gold),#fff2c6);
+      box-shadow:
+      0 0 20px rgba(255,211,132,.4),
+      inset 0 0 20px rgba(255,255,255,.4);
+      transform:translateY(-2px);
     }
 
     /* HERO */
@@ -279,154 +146,174 @@
     .hero{
       min-height:100vh;
       position:relative;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      padding:120px 7%;
       overflow:hidden;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      padding:0 5%;
+    }
+
+    .moon{
+      position:absolute;
+      width:520px;
+      height:520px;
+      border-radius:50%;
+      background:
+      radial-gradient(circle, rgba(255,255,255,.95) 0%, rgba(215,240,255,.7) 40%, rgba(255,255,255,0) 75%);
+      top:50px;
+      right:10%;
+      filter:blur(1px);
+      animation:moonGlow 8s infinite ease-in-out;
+    }
+
+    @keyframes moonGlow{
+      0%,100%{
+        transform:scale(1);
+        opacity:.85;
+      }
+      50%{
+        transform:scale(1.06);
+        opacity:1;
+      }
+    }
+
+    .cloud{
+      position:absolute;
+      opacity:.18;
+      filter:blur(1px);
+      animation:floatCloud 40s linear infinite;
+    }
+
+    .cloud1{
+      top:150px;
+      left:-300px;
+      width:700px;
+    }
+
+    .cloud2{
+      bottom:120px;
+      right:-200px;
+      width:600px;
+      animation-duration:55s;
+    }
+
+    @keyframes floatCloud{
+      from{
+        transform:translateX(0);
+      }
+      to{
+        transform:translateX(1800px);
+      }
     }
 
     .hero-content{
       position:relative;
-      z-index:10;
-      max-width:900px;
-      text-align:center;
-    }
-
-    .hero-sub{
-      color:var(--pink);
-      letter-spacing:5px;
-      margin-bottom:20px;
-      text-transform:uppercase;
+      z-index:3;
+      max-width:1200px;
     }
 
     .hero-title{
-      font-size:7rem;
-      font-family:"Ma Shan Zheng",cursive;
-      color:#fff;
-      line-height:1.1;
+      font-family:'Ma Shan Zheng',cursive;
+      font-size:clamp(5rem,11vw,10rem);
+      color:#fff5d2;
+      line-height:1;
       text-shadow:
-      0 0 20px rgba(255,255,255,.4),
-      0 0 80px rgba(255,210,130,.35);
-      animation:breath 5s infinite;
+      0 0 20px rgba(255,215,120,.4),
+      0 0 60px rgba(255,215,120,.15);
+      margin-bottom:20px;
+      animation:titleFloat 5s infinite ease-in-out;
     }
 
-    .hero-title span{
-      color:var(--gold2);
+    @keyframes titleFloat{
+      0%,100%{transform:translateY(0);}
+      50%{transform:translateY(-8px);}
     }
 
-    .hero-desc{
-      margin-top:30px;
+    .hero-sub{
+      font-size:1.1rem;
+      letter-spacing:2px;
+      color:#f3e5cf;
+      margin-bottom:35px;
       line-height:2;
-      font-size:1.05rem;
-      color:#ddd;
     }
 
     .hero-buttons{
-      margin-top:50px;
       display:flex;
       justify-content:center;
-      gap:20px;
       flex-wrap:wrap;
+      gap:18px;
     }
 
-    .btn{
-      padding:16px 30px;
-      border:1px solid rgba(255,220,160,.4);
-      background:rgba(255,255,255,.04);
-      color:#fff;
+    .hero-buttons a{
       text-decoration:none;
-      letter-spacing:2px;
-      position:relative;
-      overflow:hidden;
+      color:white;
+      padding:15px 28px;
+      border-radius:999px;
+      border:1px solid rgba(255,221,160,.2);
+      background:rgba(255,255,255,.04);
       backdrop-filter:blur(12px);
       transition:.5s;
-      border-radius:60px;
+      position:relative;
+      overflow:hidden;
     }
 
-    .btn::before{
-      content:"";
+    .hero-buttons a::before{
+      content:'';
       position:absolute;
       inset:0;
-      background:linear-gradient(120deg,transparent,rgba(255,255,255,.15),transparent);
+      background:linear-gradient(120deg, transparent, rgba(255,255,255,.4), transparent);
       transform:translateX(-100%);
     }
 
-    .btn:hover::before{
-      animation:shine 1.2s;
+    .hero-buttons a:hover::before{
+      transform:translateX(200%);
+      transition:1s;
     }
 
-    .btn:hover{
+    .hero-buttons a:hover{
+      background:linear-gradient(45deg,var(--gold),#fff4d0);
+      color:black;
       transform:translateY(-5px);
-      border-color:var(--gold2);
-      box-shadow:
-      0 0 30px rgba(255,220,150,.25),
-      inset 0 0 20px rgba(255,220,150,.08);
-    }
-
-    @keyframes shine{
-      to{
-        transform:translateX(100%);
-      }
+      box-shadow:0 0 25px rgba(255,211,132,.35);
     }
 
     /* DEER */
 
-    .deer{
+    .deer-wrapper{
       position:absolute;
       bottom:0;
       left:50%;
       transform:translateX(-50%);
-      width:780px;
-      opacity:.92;
+      width:min(850px,95vw);
+      z-index:2;
       animation:deerFloat 7s ease-in-out infinite;
+      pointer-events:none;
+    }
+
+    .deer-wrapper img{
+      width:100%;
+      object-fit:contain;
       filter:
-      drop-shadow(0 0 50px rgba(255,240,200,.15))
-      drop-shadow(0 0 120px rgba(255,220,120,.1));
+      drop-shadow(0 0 20px rgba(255,255,255,.15))
+      drop-shadow(0 0 40px rgba(255,214,150,.15));
     }
 
     @keyframes deerFloat{
       0%,100%{
-        transform:translateX(-50%) translateY(0px);
+        transform:translateX(-50%) translateY(0);
       }
       50%{
-        transform:translateX(-50%) translateY(-20px);
-      }
-    }
-
-    /* SILK */
-
-    .silk{
-      position:absolute;
-      width:800px;
-      height:800px;
-      border-radius:50%;
-      border:2px solid rgba(255,210,160,.05);
-      animation:spin 25s linear infinite;
-    }
-
-    .silk::before{
-      content:"";
-      position:absolute;
-      inset:80px;
-      border-radius:50%;
-      border:1px solid rgba(255,180,120,.08);
-    }
-
-    @keyframes spin{
-      from{
-        transform:rotate(0deg);
-      }
-      to{
-        transform:rotate(360deg);
+        transform:translateX(-50%) translateY(-15px);
       }
     }
 
     /* SECTION */
 
     section{
-      padding:140px 8%;
       position:relative;
+      padding:140px 8%;
+      overflow:hidden;
     }
 
     .section-title{
@@ -435,15 +322,27 @@
     }
 
     .section-title h2{
-      font-size:4rem;
-      font-family:"Ma Shan Zheng",cursive;
-      color:var(--gold2);
-      margin-bottom:10px;
+      font-family:'Cinzel',serif;
+      font-size:3.5rem;
+      color:#fff1cb;
+      margin-bottom:15px;
+      text-shadow:0 0 20px rgba(255,212,120,.3);
     }
 
     .section-title p{
-      color:#ccc;
-      letter-spacing:4px;
+      color:#e3d3b7;
+      opacity:.85;
+    }
+
+    /* ORNAMENT */
+
+    .ornament{
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      background-image:
+      radial-gradient(circle at center, rgba(255,255,255,.03) 0%, transparent 60%);
+      opacity:.5;
     }
 
     /* ABOUT */
@@ -451,112 +350,107 @@
     .about-box{
       max-width:1000px;
       margin:auto;
-      padding:80px;
-      border:1px solid var(--line);
+      padding:60px;
+      border:1px solid rgba(255,220,180,.1);
       background:rgba(255,255,255,.03);
-      backdrop-filter:blur(16px);
+      backdrop-filter:blur(12px);
+      border-radius:40px;
       position:relative;
       overflow:hidden;
+      box-shadow:
+      inset 0 0 50px rgba(255,255,255,.02),
+      0 0 60px rgba(255,185,100,.05);
     }
 
     .about-box::before{
-      content:"";
+      content:'';
       position:absolute;
       inset:0;
       background:
-      radial-gradient(circle at top right, rgba(255,220,160,.08), transparent 30%);
-      pointer-events:none;
+      linear-gradient(120deg, transparent, rgba(255,255,255,.04), transparent);
+      animation:shine 10s linear infinite;
+    }
+
+    @keyframes shine{
+      from{transform:translateX(-100%);}
+      to{transform:translateX(100%);}
     }
 
     .about-box h3{
+      font-family:'Noto Serif SC',serif;
       font-size:3rem;
-      margin-bottom:30px;
-      font-family:"Cinzel",serif;
-      color:#fff;
+      margin-bottom:25px;
+      color:#ffe8b5;
     }
 
     .about-box p{
-      line-height:2.3;
+      line-height:2.2;
+      color:#f1e7d6;
       font-size:1.1rem;
-      color:#ddd;
     }
 
     /* SKILLS */
 
     .skills-grid{
       display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-      gap:35px;
+      grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+      gap:30px;
     }
 
     .skill-card{
-      padding:50px 35px;
-      border:1px solid rgba(255,220,150,.15);
-      background:rgba(255,255,255,.03);
-      backdrop-filter:blur(14px);
+      padding:45px 35px;
+      border-radius:30px;
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,220,180,.1);
+      text-align:center;
       transition:.6s;
       position:relative;
       overflow:hidden;
-    }
-
-    .skill-card::before{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:
-      linear-gradient(130deg,rgba(255,220,160,.08),transparent);
-      opacity:0;
-      transition:.6s;
-    }
-
-    .skill-card:hover::before{
-      opacity:1;
+      backdrop-filter:blur(10px);
     }
 
     .skill-card:hover{
-      transform:translateY(-12px);
-      border-color:rgba(255,220,160,.4);
-      box-shadow:0 0 40px rgba(255,220,160,.12);
+      transform:translateY(-12px) scale(1.03);
+      box-shadow:
+      0 20px 40px rgba(0,0,0,.4),
+      0 0 40px rgba(255,209,120,.15);
+    }
+
+    .skill-card h4{
+      margin-top:18px;
+      font-size:1.4rem;
+      color:#fff1d2;
     }
 
     .skill-icon{
       font-size:3rem;
-      margin-bottom:20px;
-    }
-
-    .skill-card h4{
-      font-size:1.5rem;
-      margin-bottom:15px;
       color:var(--gold2);
-    }
-
-    .skill-card p{
-      line-height:1.8;
-      color:#ddd;
+      text-shadow:0 0 25px rgba(255,220,150,.6);
     }
 
     /* TIMELINE */
 
     .timeline{
       position:relative;
-      max-width:1100px;
+      max-width:1000px;
       margin:auto;
     }
 
     .timeline::before{
-      content:"";
+      content:'';
       position:absolute;
       left:50%;
+      top:0;
       transform:translateX(-50%);
-      width:2px;
+      width:3px;
       height:100%;
-      background:
-      linear-gradient(to bottom,transparent,var(--gold),transparent);
+      background:linear-gradient(to bottom, transparent,var(--gold),transparent);
+      box-shadow:0 0 15px rgba(255,214,140,.4);
     }
 
     .timeline-item{
       width:50%;
-      padding:40px;
+      padding:25px 50px;
       position:relative;
     }
 
@@ -569,22 +463,24 @@
       left:50%;
     }
 
-    .timeline-card{
+    .timeline-content{
+      background:rgba(255,255,255,.04);
       padding:35px;
-      background:rgba(255,255,255,.03);
-      border:1px solid rgba(255,220,150,.15);
-      backdrop-filter:blur(14px);
+      border-radius:25px;
+      border:1px solid rgba(255,220,180,.1);
+      backdrop-filter:blur(10px);
+      transition:.5s;
     }
 
-    .timeline-card h4{
-      color:var(--gold2);
+    .timeline-content:hover{
+      transform:translateY(-8px);
+      box-shadow:0 0 40px rgba(255,210,130,.12);
+    }
+
+    .timeline-content h4{
+      color:#ffe8b5;
       margin-bottom:15px;
       font-size:1.4rem;
-    }
-
-    .timeline-card p{
-      line-height:2;
-      color:#ddd;
     }
 
     /* GALLERY */
@@ -592,15 +488,22 @@
     .gallery{
       display:grid;
       grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-      gap:35px;
+      gap:30px;
     }
 
     .gallery-item{
       position:relative;
+      border-radius:30px;
       overflow:hidden;
-      border:1px solid rgba(255,220,150,.2);
-      background:#111;
+      border:1px solid rgba(255,220,180,.1);
+      background:rgba(255,255,255,.03);
       cursor:pointer;
+      transition:.5s;
+    }
+
+    .gallery-item:hover{
+      transform:translateY(-10px);
+      box-shadow:0 20px 50px rgba(0,0,0,.5);
     }
 
     .gallery-item img{
@@ -608,81 +511,97 @@
       height:420px;
       object-fit:cover;
       transition:1s;
-      filter:brightness(.8);
+      display:block;
     }
 
     .gallery-item:hover img{
       transform:scale(1.08);
-      filter:brightness(1);
     }
 
     .gallery-overlay{
       position:absolute;
       inset:0;
-      background:linear-gradient(to top,rgba(0,0,0,.8),transparent);
+      background:linear-gradient(to top, rgba(0,0,0,.8), transparent);
       display:flex;
       align-items:flex-end;
       padding:30px;
+      font-size:1.3rem;
+      color:#fff4d7;
+      font-family:'Cinzel',serif;
     }
 
-    .gallery-overlay h4{
-      font-size:1.5rem;
-      color:#fff;
+    /* CONTACT */
+
+    .contact-box{
+      max-width:900px;
+      margin:auto;
+      text-align:center;
+      padding:60px;
+      border-radius:40px;
+      background:rgba(255,255,255,.03);
+      border:1px solid rgba(255,220,180,.1);
+      backdrop-filter:blur(10px);
     }
 
-    /* FOOTER */
+    .contact-box h3{
+      font-size:2.8rem;
+      margin-bottom:20px;
+      color:#ffe5b2;
+      font-family:'Cinzel',serif;
+    }
+
+    .contact-box p{
+      line-height:2;
+      color:#f2e5d2;
+    }
 
     footer{
-      padding:100px 8%;
+      padding:40px;
       text-align:center;
-      border-top:1px solid rgba(255,255,255,.06);
+      color:#d6c3a1;
+      border-top:1px solid rgba(255,255,255,.08);
       background:rgba(0,0,0,.2);
-    }
-
-    footer h3{
-      font-family:"Ma Shan Zheng",cursive;
-      font-size:3rem;
-      color:var(--gold2);
-      margin-bottom:20px;
-    }
-
-    footer p{
-      color:#ccc;
-      line-height:2;
     }
 
     /* PETALS */
 
     .petal{
       position:fixed;
-      top:-10%;
-      width:22px;
+      top:-50px;
+      width:20px;
+      height:20px;
+      background:radial-gradient(circle,#ffd2e1,#ff9bb5);
+      border-radius:60% 40% 60% 40%;
+      opacity:.7;
       pointer-events:none;
-      z-index:100;
-      opacity:.8;
-      animation:petalFall linear infinite;
+      z-index:99;
+      animation:fall linear forwards;
     }
 
-    @keyframes petalFall{
-      from{
-        transform:translateY(-10vh) rotate(0deg);
-      }
+    @keyframes fall{
       to{
-        transform:translateY(120vh) rotate(360deg);
+        transform:translateY(110vh) rotate(360deg);
+        opacity:0;
       }
+    }
+
+    /* CURSOR */
+
+    .cursor-glow{
+      width:300px;
+      height:300px;
+      position:fixed;
+      pointer-events:none;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(255,218,145,.18), transparent 70%);
+      transform:translate(-50%,-50%);
+      z-index:1;
+      mix-blend-mode:screen;
     }
 
     /* RESPONSIVE */
 
-    @media(max-width:992px){
-
-      .hero-title{
-        font-size:5rem;
-      }
-
-      .deer{
-        width:600px;
-      }
+    @media(max-width:900px){
 
       .timeline::before{
         left:20px;
@@ -690,58 +609,23 @@
 
       .timeline-item{
         width:100%;
+        padding-left:70px;
+        padding-right:20px;
         left:0 !important;
-        padding-left:60px;
         text-align:left !important;
-      }
-    }
-
-    @media(max-width:768px){
-
-      nav{
-        flex-direction:column;
-        gap:20px;
-      }
-
-      nav ul{
-        flex-wrap:wrap;
-        justify-content:center;
       }
 
       .hero-title{
         font-size:4rem;
       }
 
-      .deer{
-        width:450px;
-      }
-
       .about-box{
-        padding:40px 30px;
+        padding:40px 25px;
       }
 
-      .section-title h2{
-        font-size:3rem;
-      }
-
-      .moon{
-        width:180px;
-        height:180px;
-      }
-    }
-
-    @media(max-width:500px){
-
-      .hero-title{
-        font-size:3rem;
-      }
-
-      .hero-buttons{
+      nav{
         flex-direction:column;
-      }
-
-      .deer{
-        width:340px;
+        gap:15px;
       }
     }
 
@@ -750,21 +634,13 @@
 
 <body>
 
-  <!-- LOADER -->
-  <div class="loader" id="loader">
+  <!-- Loader -->
+  <div class="loader">
     <h1>夢 飛 天</h1>
-    <span>LOADING DUNHUANG WORLD...</span>
   </div>
 
-  <!-- MOON -->
-  <div class="moon"></div>
-
-  <!-- CLOUD -->
-  <div class="cloud one"></div>
-  <div class="cloud two"></div>
-
-  <!-- PARTICLES -->
-  <div class="particles" id="particles"></div>
+  <!-- Cursor Glow -->
+  <div class="cursor-glow"></div>
 
   <!-- NAV -->
   <nav>
@@ -783,33 +659,39 @@
   <!-- HERO -->
   <section class="hero" id="hero">
 
-    <div class="silk"></div>
+    <div class="moon"></div>
 
-    <img
-      class="deer"
-      src="https://images.unsplash.com/photo-1517849845537-4d257902454a?q=80&w=1200&auto=format&fit=crop"
-      alt="Dunhuang Deer"
-    />
+    <img class="cloud cloud1"
+      src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1200&auto=format&fit=crop"
+      alt="cloud"/>
+
+    <img class="cloud cloud2"
+      src="https://images.unsplash.com/photo-1493246507139-91e8fad9978e?q=80&w=1200&auto=format&fit=crop"
+      alt="cloud"/>
 
     <div class="hero-content">
 
-      <div class="hero-sub">
-        DUNHUANG ARTISTIC PORTFOLIO
-      </div>
-
       <h1 class="hero-title">
-        Mộng <span>Phi Thiên</span>
+        Mộng Phi Thiên
       </h1>
 
-      <p class="hero-desc">
-        Graphic Designer • Digital Designer • Digital Artist • Multimedia Artist • Book Cover Illustrator
-      </p>
-
-      <div class="hero-buttons">
-        <a href="#about" class="btn">Khởi Hành</a>
-        <a href="#products" class="btn">Khám Phá Tác Phẩm</a>
+      <div class="hero-sub">
+        Graphic Designer • Digital Designer • Digital Artist <br/>
+        Multimedia Artist • Book Cover Illustrator
       </div>
 
+      <div class="hero-buttons">
+        <a href="#about">Khám Phá</a>
+        <a href="#products">Tác Phẩm</a>
+      </div>
+
+    </div>
+
+    <!-- DEER -->
+    <div class="deer-wrapper">
+      <img
+      src="https://images.unsplash.com/photo-1517849845537-4d257902454a?q=80&w=1200&auto=format&fit=crop"
+      alt="Dunhuang Deer"/>
     </div>
 
   </section>
@@ -817,25 +699,24 @@
   <!-- ABOUT -->
   <section id="about">
 
+    <div class="ornament"></div>
+
     <div class="section-title">
-      <h2>Vô Thanh Mộng Cảnh</h2>
-      <p>ABOUT THE ARTIST</p>
+      <h2>Phi Thiên Chi Mộng</h2>
+      <p>Nơi sắc màu biết thở và tưởng tượng được tự do.</p>
     </div>
 
     <div class="about-box reveal">
 
-      <h3>
-        Nguyen Phu Cuong (Yuue)
-      </h3>
+      <h3>Nguyen Phu Cuong (Yuue)</h3>
 
       <p>
         “Tô sắc cho những giấc mộng không lời,
         nơi sắc màu biết thở và tưởng tượng được tự do.”
-        <br><br>
+        <br/><br/>
 
-        Tôi theo đuổi vẻ đẹp giữa cổ phong và điện ảnh,
-        nơi nghệ thuật không chỉ để nhìn ngắm,
-        mà còn để cảm nhận như một cơn gió lướt qua miền ký ức.
+        Graphic Designer • Digital Designer • Digital Artist
+        • Multimedia Artist • Book Cover Illustrator/Artist
       </p>
 
     </div>
@@ -846,46 +727,30 @@
   <section id="skills">
 
     <div class="section-title">
-      <h2>Thiên Công Nghệ Thuật</h2>
-      <p>SKILLS</p>
+      <h2>Kỹ Năng</h2>
+      <p>Những sắc màu tạo nên linh hồn nghệ thuật.</p>
     </div>
 
     <div class="skills-grid">
 
       <div class="skill-card reveal">
-        <div class="skill-icon"></div>
+        <div class="skill-icon">✦</div>
         <h4>Photoshop</h4>
-        <p>
-          Cinematic photo manipulation, fantasy artwork,
-          concept composition.
-        </p>
       </div>
 
       <div class="skill-card reveal">
-        <div class="skill-icon"></div>
+        <div class="skill-icon">✧</div>
         <h4>Illustrator</h4>
-        <p>
-          Ancient ornament design, branding system,
-          visual identity.
-        </p>
       </div>
 
       <div class="skill-card reveal">
-        <div class="skill-icon"></div>
+        <div class="skill-icon">❀</div>
         <h4>Nhiếp Ảnh</h4>
-        <p>
-          Atmospheric lighting, cinematic frame,
-          storytelling composition.
-        </p>
       </div>
 
       <div class="skill-card reveal">
-        <div class="skill-icon"></div>
+        <div class="skill-icon">♫</div>
         <h4>Vocal Music</h4>
-        <p>
-          Emotional performance and artistic rhythm
-          for multimedia experience.
-        </p>
       </div>
 
     </div>
@@ -896,45 +761,37 @@
   <section id="timeline">
 
     <div class="section-title">
-      <h2>Hành Trình Lưu Ly</h2>
-      <p>TIMELINE</p>
+      <h2>Dòng Thời Gian</h2>
+      <p>Những bước chân dưới ánh trăng cổ phong.</p>
     </div>
 
     <div class="timeline">
 
       <div class="timeline-item reveal">
-        <div class="timeline-card">
+        <div class="timeline-content">
           <h4>2023</h4>
-          <p>
-            Vừa đi học vừa đi làm phục vụ nhà hàng tiệc cưới.
-          </p>
+          <p>Vừa đi học vừa đi làm phục vụ nhà hàng tiệc cưới.</p>
         </div>
       </div>
 
       <div class="timeline-item reveal">
-        <div class="timeline-card">
-          <h4>Tháng 1 - 2024</h4>
-          <p>
-            Đi làm nhân viên sân cầu lông.
-          </p>
+        <div class="timeline-content">
+          <h4>Tháng 1 • 2024</h4>
+          <p>Đi làm nhân viên sân cầu lông.</p>
         </div>
       </div>
 
       <div class="timeline-item reveal">
-        <div class="timeline-card">
-          <h4>Tháng 3 - 2024</h4>
-          <p>
-            Làm giám sát camera cho chung cư Gamuda Land.
-          </p>
+        <div class="timeline-content">
+          <h4>Tháng 3 • 2024</h4>
+          <p>Làm giám sát camera cho chung cư Gamuda Land.</p>
         </div>
       </div>
 
       <div class="timeline-item reveal">
-        <div class="timeline-card">
-          <h4>Tháng 6 - 2024</h4>
-          <p>
-            Làm công nhân tô vẽ cho xưởng gia công gốm sứ.
-          </p>
+        <div class="timeline-content">
+          <h4>Tháng 6 • 2024</h4>
+          <p>Làm công nhân tô vẽ cho xưởng gia công gốm sứ.</p>
         </div>
       </div>
 
@@ -946,30 +803,30 @@
   <section id="products">
 
     <div class="section-title">
-      <h2>Thần Mộng Tàng Phẩm</h2>
-      <p>PERSONAL PRODUCTS</p>
+      <h2>Tác Phẩm Cá Nhân</h2>
+      <p>Những mảnh ký ức được dát vàng bởi tưởng tượng.</p>
     </div>
 
     <div class="gallery">
 
       <div class="gallery-item reveal">
-        <img src="https://images.unsplash.com/photo-1516321497487-e288fb19713f?q=80&w=1200&auto=format&fit=crop">
+        <img src="https://images.unsplash.com/photo-1545239351-1141bd82e8a6?q=80&w=1200&auto=format&fit=crop" alt="">
         <div class="gallery-overlay">
-          <h4>Logo Cá Nhân</h4>
+          Logo Cá Nhân
         </div>
       </div>
 
       <div class="gallery-item reveal">
-        <img src="https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?q=80&w=1200&auto=format&fit=crop">
+        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop" alt="">
         <div class="gallery-overlay">
-          <h4>Name Card</h4>
+          Name Card
         </div>
       </div>
 
       <div class="gallery-item reveal">
-        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop">
+        <img src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?q=80&w=1200&auto=format&fit=crop" alt="">
         <div class="gallery-overlay">
-          <h4>Bookmark</h4>
+          Bookmark
         </div>
       </div>
 
@@ -977,112 +834,108 @@
 
   </section>
 
-  <!-- FOOTER -->
-  <footer id="contact">
+  <!-- CONTACT -->
+  <section id="contact">
 
-    <h3>Mộng Phi Thiên</h3>
+    <div class="contact-box reveal">
+      <h3>Liên Hệ</h3>
 
-    <p>
-      Nguyen Phu Cuong (Yuue)
-      <br><br>
-      Graphic Designer • Digital Artist • Multimedia Artist
-      <br><br>
-      “Nơi ánh trăng ngủ yên trên những dải lụa cổ phong.”
-    </p>
+      <p>
+        Hãy cùng nhau tạo nên những giấc mộng mang sắc màu điện ảnh,
+        nơi nghệ thuật không còn giới hạn.
+      </p>
 
+    </div>
+
+  </section>
+
+  <footer>
+    © 2026 Mộng Phi Thiên — Nguyen Phu Cuong (Yuue)
   </footer>
 
   <script>
 
     // LOADER
-
-    window.addEventListener("load",()=>{
+    window.addEventListener('load',()=>{
 
       setTimeout(()=>{
-        document.getElementById("loader").classList.add("hide");
-      },2200);
+        document.querySelector('.loader').style.opacity='0';
+
+        setTimeout(()=>{
+          document.querySelector('.loader').style.display='none';
+        },1500);
+
+      },1800)
 
     });
 
-    // PARTICLES
+    // CURSOR GLOW
 
-    const particles = document.getElementById("particles");
+    const cursor = document.querySelector('.cursor-glow');
 
-    for(let i=0;i<80;i++){
-
-      const p = document.createElement("div");
-      p.classList.add("particle");
-
-      p.style.left = Math.random()*100+"%";
-      p.style.animationDuration = 10 + Math.random()*20 + "s";
-      p.style.animationDelay = Math.random()*10 + "s";
-
-      const size = Math.random()*4+2;
-
-      p.style.width=size+"px";
-      p.style.height=size+"px";
-
-      particles.appendChild(p);
-    }
+    window.addEventListener('mousemove',(e)=>{
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+    });
 
     // PETALS
 
-    for(let i=0;i<25;i++){
+    function createPetal(){
 
-      const petal=document.createElement("img");
+      const petal = document.createElement('div');
+      petal.classList.add('petal');
 
-      petal.src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Cherry_Blossom_Petal.svg/1200px-Cherry_Blossom_Petal.svg.png";
+      petal.style.left = Math.random()*window.innerWidth + 'px';
 
-      petal.classList.add("petal");
+      petal.style.animationDuration =
+      8 + Math.random()*10 + 's';
 
-      petal.style.left=Math.random()*100+"%";
+      petal.style.opacity =
+      Math.random();
 
-      petal.style.animationDuration=10+Math.random()*20+"s";
-
-      petal.style.animationDelay=Math.random()*10+"s";
-
-      petal.style.width=10+Math.random()*18+"px";
+      petal.style.transform =
+      `scale(${Math.random()*1.5})`;
 
       document.body.appendChild(petal);
+
+      setTimeout(()=>{
+        petal.remove();
+      },18000)
+
     }
+
+    setInterval(createPetal,400);
 
     // GSAP
 
     gsap.registerPlugin(ScrollTrigger);
 
-    gsap.utils.toArray(".reveal").forEach((el)=>{
+    gsap.utils.toArray('.reveal').forEach(el=>{
 
       gsap.from(el,{
+        y:80,
         opacity:0,
-        y:100,
-        duration:1.5,
-        ease:"power3.out",
+        duration:1.8,
+        ease:'power4.out',
         scrollTrigger:{
           trigger:el,
-          start:"top 85%",
+          start:'top 85%',
         }
-      });
+      })
 
     });
 
     // PARALLAX
 
-    window.addEventListener("mousemove",(e)=>{
+    window.addEventListener('scroll',()=>{
 
-      const x = (window.innerWidth/2 - e.clientX)/40;
-      const y = (window.innerHeight/2 - e.clientY)/40;
+      const scrollY = window.scrollY;
 
-      gsap.to(".moon",{
-        x,
-        y,
-        duration:2
-      });
+      document.querySelector('.moon').style.transform =
+      `translateY(${scrollY * 0.2}px)`;
 
-      gsap.to(".deer",{
-        x:-x,
-        y:-y,
-        duration:2
-      });
+      document.querySelector('.deer-wrapper').style.transform =
+      `translateX(-50%) translateY(${scrollY * -0.04}px)`;
 
     });
 
@@ -1090,4 +943,3 @@
 
 </body>
 </html>
-
