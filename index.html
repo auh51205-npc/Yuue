@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Mộng Phi Thiên | Nguyen Phu Cuong</title>
+<title>Mộng Phi Thiên | Portfolio</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;700&family=Cinzel:wght@400;600&family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;700&family=Ma+Shan+Zheng&family=Be+Vietnam+Pro:wght@300;400;500;700&display=swap" rel="stylesheet">
 
 <style>
 
@@ -24,505 +24,542 @@ html{
 }
 
 body{
-    background:
-    radial-gradient(circle at top, rgba(255,215,120,0.12), transparent 30%),
-    linear-gradient(to bottom,#07111d,#08131f,#101727,#0a0d14);
     overflow-x:hidden;
-    color:#f7e7c6;
+    background:#030303;
     font-family:'Be Vietnam Pro',sans-serif;
+    color:white;
 }
 
-/* SCROLLBAR */
+/* =========================
+BACKGROUND
+========================= */
 
-::-webkit-scrollbar{
-    width:10px;
+.bg{
+    position:fixed;
+    inset:0;
+    z-index:-10;
+    overflow:hidden;
+
+    background:
+    radial-gradient(circle at center,
+    rgba(255,210,120,.15),
+    transparent 20%),
+
+    linear-gradient(to bottom,
+    #030303 0%,
+    #080808 30%,
+    #040404 100%);
 }
 
-::-webkit-scrollbar-track{
-    background:#0b1018;
+.bg::before{
+    content:"";
+    position:absolute;
+    inset:0;
+
+    background:
+    radial-gradient(circle,
+    rgba(255,255,255,.08) 1px,
+    transparent 1px);
+
+    background-size:4px 4px;
+    opacity:.2;
 }
 
-::-webkit-scrollbar-thumb{
-    background:linear-gradient(#d7b36c,#8c5f2a);
-    border-radius:20px;
-}
-
-/* GLOBAL */
-
-section{
-    position:relative;
-    width:100%;
-    padding:120px 10%;
-    z-index:2;
-}
-
-.title{
-    font-size:55px;
-    font-family:'Ma Shan Zheng',cursive;
-    text-align:center;
-    margin-bottom:20px;
-    color:#ffe7aa;
-    text-shadow:
-    0 0 10px rgba(255,221,130,.8),
-    0 0 30px rgba(255,180,100,.4);
-}
-
-.subtitle{
-    text-align:center;
-    color:#dfc7a0;
-    margin-bottom:70px;
-    line-height:1.9;
-}
-
-/* BACKGROUND */
+/* =========================
+MOON
+========================= */
 
 .moon{
-    position:fixed;
+    position:absolute;
+    top:120px;
+    left:50%;
+    transform:translateX(-50%);
     width:420px;
     height:420px;
     border-radius:50%;
-    top:-100px;
-    right:-80px;
+
     background:
     radial-gradient(circle,
-    rgba(255,255,255,1) 0%,
-    rgba(255,245,210,.95) 20%,
-    rgba(255,228,170,.4) 40%,
-    transparent 70%);
+    rgba(255,245,210,1) 0%,
+    rgba(255,225,180,.9) 40%,
+    rgba(255,215,150,.2) 60%,
+    transparent 80%);
+
     filter:blur(2px);
-    z-index:0;
-    animation:moonGlow 5s ease-in-out infinite;
+
+    box-shadow:
+    0 0 100px rgba(255,220,150,.25),
+    0 0 250px rgba(255,220,150,.08);
+
+    animation:moonGlow 6s ease-in-out infinite;
 }
 
 @keyframes moonGlow{
-    0%,100%{
-        transform:scale(1);
-    }
-    50%{
-        transform:scale(1.05);
-    }
+
+0%,100%{
+transform:translateX(-50%) scale(1);
 }
 
-.stars{
-    position:fixed;
-    inset:0;
-    background-image:
-    radial-gradient(white 1px, transparent 1px);
-    background-size:3px 3px;
-    opacity:.15;
-    z-index:0;
+50%{
+transform:translateX(-50%) scale(1.03);
 }
 
-/* CLOUDS */
+}
 
-.cloud{
+/* =========================
+FOG
+========================= */
+
+.fog{
     position:absolute;
-    background:rgba(255,255,255,.05);
-    filter:blur(40px);
-    border-radius:50%;
-    animation:floatCloud 20s linear infinite;
+    bottom:0;
+    width:100%;
+    height:340px;
+
+    background:
+    linear-gradient(to top,
+    rgba(255,255,255,.15),
+    transparent);
+
+    filter:blur(30px);
+    opacity:.45;
 }
 
-.cloud1{
-    width:500px;
-    height:140px;
-    top:100px;
-    left:-200px;
-}
+/* =========================
+NAVBAR
+========================= */
 
-.cloud2{
-    width:400px;
-    height:120px;
-    top:500px;
-    right:-100px;
-}
-
-@keyframes floatCloud{
-    0%{
-        transform:translateX(0);
-    }
-    50%{
-        transform:translateX(100px);
-    }
-    100%{
-        transform:translateX(0);
-    }
-}
-
-/* PETALS */
-
-.petal{
+nav{
     position:fixed;
-    top:-20px;
-    width:14px;
-    height:14px;
-    background:rgba(255,182,193,.8);
-    border-radius:60% 40% 70% 30%;
-    filter:blur(.3px);
-    animation:fall linear infinite;
-    z-index:1;
+    top:0;
+    width:100%;
+    z-index:1000;
+
+    padding:26px 8%;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    backdrop-filter:blur(10px);
+
+    border-bottom:1px solid rgba(255,200,120,.12);
 }
 
-@keyframes fall{
-    0%{
-        transform:translateY(-10vh) rotate(0deg);
-        opacity:0;
-    }
+.logo{
+    font-family:'Ma Shan Zheng',cursive;
+    font-size:40px;
+    color:#e8c17c;
 
-    10%{
-        opacity:1;
-    }
-
-    100%{
-        transform:translateY(110vh) translateX(80px) rotate(360deg);
-        opacity:0;
-    }
+    text-shadow:
+    0 0 10px rgba(255,200,120,.6);
 }
 
-/* HERO */
+nav ul{
+    display:flex;
+    list-style:none;
+    gap:40px;
+}
+
+nav ul li a{
+    color:#f5d6a0;
+    text-decoration:none;
+    letter-spacing:2px;
+    font-size:14px;
+    position:relative;
+}
+
+nav ul li a::after{
+    content:"";
+    position:absolute;
+    left:0;
+    bottom:-8px;
+
+    width:0%;
+    height:1px;
+
+    background:#dca85d;
+    transition:.5s;
+}
+
+nav ul li a:hover::after{
+    width:100%;
+}
+
+/* =========================
+HERO
+========================= */
 
 .hero{
     min-height:100vh;
+
     display:flex;
+    justify-content:center;
     align-items:center;
-    justify-content:space-between;
-    gap:60px;
+
+    text-align:center;
+    position:relative;
+    overflow:hidden;
 }
 
-.hero-content{
-    width:50%;
+/* =========================
+DEER
+========================= */
+
+.deer{
+    position:absolute;
+    top:130px;
+    left:50%;
+    transform:translateX(-50%);
+    width:260px;
     z-index:3;
+
+    filter:
+    drop-shadow(0 0 20px rgba(255,210,120,.4));
+
+    animation:deerFloat 6s ease-in-out infinite;
+}
+
+@keyframes deerFloat{
+
+0%,100%{
+transform:translateX(-50%) translateY(0px);
+}
+
+50%{
+transform:translateX(-50%) translateY(-12px);
+}
+
+}
+
+/* =========================
+RED SILK
+========================= */
+
+.ribbon{
+    position:absolute;
+    width:700px;
+    opacity:.95;
+    z-index:2;
+
+    filter:
+    drop-shadow(0 0 20px rgba(255,0,0,.3));
+
+    animation:silkMove 9s ease-in-out infinite;
+}
+
+.ribbon.left{
+    left:-120px;
+    top:180px;
+}
+
+.ribbon.right{
+    right:-120px;
+    top:220px;
+    transform:scaleX(-1);
+}
+
+@keyframes silkMove{
+
+0%,100%{
+transform:translateY(0px);
+}
+
+50%{
+transform:translateY(-20px);
+}
+
+}
+
+/* =========================
+PARTICLES
+========================= */
+
+.particle{
+    position:absolute;
+    width:8px;
+    height:8px;
+    border-radius:50%;
+
+    background:rgba(255,160,100,.7);
+
+    box-shadow:
+    0 0 10px rgba(255,150,100,.8);
+
+    animation:floatParticle linear infinite;
+}
+
+@keyframes floatParticle{
+
+0%{
+transform:translateY(100vh) scale(0);
+opacity:0;
+}
+
+20%{
+opacity:1;
+}
+
+100%{
+transform:translateY(-10vh) translateX(80px) scale(1);
+opacity:0;
+}
+
+}
+
+/* =========================
+CONTENT
+========================= */
+
+.hero-content{
+    position:relative;
+    z-index:5;
+    margin-top:180px;
+}
+
+.hero-sub{
+    color:#cba05e;
+    letter-spacing:6px;
+    margin-bottom:15px;
+    font-size:15px;
 }
 
 .hero-title{
-    font-size:100px;
-    font-family:'Ma Shan Zheng',cursive;
-    line-height:1.1;
-    color:#ffe5b0;
+
+    font-family:'Cinzel',serif;
+    font-size:92px;
+    color:#e6c07a;
 
     text-shadow:
-    0 0 10px rgba(255,220,130,.8),
-    0 0 40px rgba(255,180,120,.4);
+    0 0 15px rgba(255,220,150,.5),
+    0 0 45px rgba(255,180,120,.3);
 
-    animation:glowText 4s ease-in-out infinite;
-}
-
-@keyframes glowText{
-    0%,100%{
-        transform:translateY(0px);
-    }
-
-    50%{
-        transform:translateY(-5px);
-    }
+    margin-bottom:20px;
 }
 
 .hero-desc{
-    margin-top:25px;
+    width:700px;
+    max-width:90%;
+    margin:auto;
+
+    color:#d9c7a8;
     line-height:2;
-    color:#ead9b6;
-    font-size:17px;
+    font-size:15px;
 }
 
-.nav-buttons{
+/* =========================
+BUTTON
+========================= */
+
+.btn{
     margin-top:40px;
-    display:flex;
-    gap:20px;
-    flex-wrap:wrap;
-}
+    display:inline-block;
 
-.nav-buttons a{
+    padding:18px 42px;
+
+    color:#f6dfb0;
     text-decoration:none;
-    color:#f7e9c4;
-    padding:14px 30px;
-    border:1px solid rgba(255,220,140,.4);
+
+    border:1px solid rgba(255,210,120,.4);
+
     position:relative;
     overflow:hidden;
+
     transition:.5s;
-    background:rgba(255,255,255,.03);
+
+    background:
+    rgba(255,255,255,.03);
+
     backdrop-filter:blur(10px);
 }
 
-.nav-buttons a::before{
+.btn::before{
     content:"";
     position:absolute;
     inset:0;
-    border:1px solid rgba(255,190,100,.5);
-    opacity:0;
-    transition:.5s;
+
+    background:
+    linear-gradient(90deg,
+    transparent,
+    rgba(255,255,255,.2),
+    transparent);
+
+    transform:translateX(-100%);
 }
 
-.nav-buttons a:hover{
+.btn:hover::before{
+    animation:shine 1s;
+}
+
+.btn:hover{
     transform:translateY(-5px);
-    box-shadow:
-    0 0 20px rgba(255,180,100,.3);
-}
-
-.nav-buttons a:hover::before{
-    opacity:1;
-}
-
-/* HERO IMAGE */
-
-.hero-image{
-    width:42%;
-    position:relative;
-}
-
-.hero-image img{
-    width:100%;
-    object-fit:cover;
-    border-radius:20px;
-    border:2px solid rgba(255,220,150,.3);
 
     box-shadow:
-    0 0 30px rgba(255,180,120,.2),
-    0 0 80px rgba(255,180,120,.08);
-
-    animation:floatDeer 6s ease-in-out infinite;
+    0 0 25px rgba(255,190,100,.25);
 }
 
-@keyframes floatDeer{
-    0%,100%{
-        transform:translateY(0px);
-    }
+@keyframes shine{
 
-    50%{
-        transform:translateY(-15px);
-    }
+100%{
+transform:translateX(100%);
 }
 
-/* ORNAMENT */
+}
 
-.ornament{
-    width:120px;
-    height:2px;
-    background:linear-gradient(to right,transparent,#d7b36c,transparent);
-    margin:25px auto;
+/* =========================
+SHOWCASE
+========================= */
+
+.showcase{
+    padding:120px 8%;
     position:relative;
 }
 
-.ornament::before{
-    content:"✦";
-    position:absolute;
-    left:50%;
-    top:-11px;
-    transform:translateX(-50%);
-    color:#f7d59a;
-}
-
-/* ABOUT */
-
-.about-box{
-    max-width:950px;
-    margin:auto;
-    padding:60px;
-    background:rgba(255,255,255,.03);
-    border:1px solid rgba(255,220,150,.2);
-    backdrop-filter:blur(10px);
-    position:relative;
-    overflow:hidden;
-}
-
-.about-box::before{
-    content:"";
-    position:absolute;
-    inset:0;
-    border:1px solid rgba(255,200,120,.1);
-    margin:12px;
-}
-
-.quote{
+.section-title{
     text-align:center;
-    font-size:24px;
-    line-height:2;
-    color:#f3dfba;
-    font-family:'Noto Serif SC',serif;
+
+    font-size:70px;
+
+    font-family:'Ma Shan Zheng',cursive;
+
+    color:#e3bf84;
+
+    margin-bottom:80px;
+
+    text-shadow:
+    0 0 20px rgba(255,200,120,.25);
 }
 
-/* SKILLS */
-
-.skills-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-    gap:35px;
-}
-
-.skill-card{
-    padding:40px;
-    background:rgba(255,255,255,.03);
-    border:1px solid rgba(255,220,160,.15);
-    transition:.5s;
-    position:relative;
-    overflow:hidden;
-}
-
-.skill-card:hover{
-    transform:translateY(-10px);
-    box-shadow:0 0 30px rgba(255,180,100,.15);
-}
-
-.skill-card h3{
-    font-size:28px;
-    margin-bottom:15px;
-    color:#ffd98d;
-    font-family:'Cinzel',serif;
-}
-
-/* TIMELINE */
-
-.timeline{
-    position:relative;
-    max-width:1000px;
-    margin:auto;
-}
-
-.timeline::before{
-    content:"";
-    position:absolute;
-    left:50%;
-    top:0;
-    width:2px;
-    height:100%;
-    background:rgba(255,210,140,.2);
-}
-
-.timeline-item{
-    width:45%;
-    padding:35px;
-    background:rgba(255,255,255,.03);
-    margin-bottom:40px;
-    position:relative;
-    border:1px solid rgba(255,220,150,.15);
-}
-
-.timeline-item:nth-child(odd){
-    left:0;
-}
-
-.timeline-item:nth-child(even){
-    left:55%;
-}
-
-.timeline-item h3{
-    color:#ffd98d;
-    margin-bottom:15px;
-}
-
-/* PRODUCTS */
-
-.products{
+.cards{
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-    gap:35px;
+    gap:40px;
 }
 
-.product-card{
-    position:relative;
+.card{
+    background:
+    rgba(255,255,255,.03);
+
+    border:
+    1px solid rgba(255,220,150,.15);
+
     overflow:hidden;
-    border:1px solid rgba(255,220,140,.2);
-    background:rgba(255,255,255,.03);
+
+    position:relative;
+
+    transition:.6s;
 }
 
-.product-card img{
+.card:hover{
+    transform:translateY(-10px);
+
+    box-shadow:
+    0 0 40px rgba(255,180,100,.12);
+}
+
+.card img{
     width:100%;
-    height:320px;
+    height:420px;
     object-fit:cover;
+
     transition:1s;
 }
 
-.product-card:hover img{
+.card:hover img{
     transform:scale(1.08);
 }
 
-.product-info{
-    padding:25px;
+.card-content{
+    padding:28px;
 }
 
-/* CONTACT */
+.card-content h3{
+    color:#e6bf7c;
+    margin-bottom:10px;
+    font-size:24px;
+}
+
+/* =========================
+CONTACT
+========================= */
+
+.contact{
+    padding:120px 8%;
+}
 
 .contact-box{
     max-width:900px;
     margin:auto;
-    background:rgba(255,255,255,.03);
+
     padding:60px;
-    border:1px solid rgba(255,220,140,.15);
+
+    background:
+    rgba(255,255,255,.03);
+
+    border:
+    1px solid rgba(255,220,150,.12);
+
+    backdrop-filter:blur(10px);
 }
 
 .contact-grid{
     display:grid;
     grid-template-columns:1fr 1fr;
-    gap:25px;
+    gap:20px;
 }
 
 input,textarea{
+
     width:100%;
     padding:18px;
-    background:rgba(255,255,255,.04);
-    border:1px solid rgba(255,220,140,.15);
-    color:white;
+
+    border:none;
     outline:none;
+
+    background:
+    rgba(255,255,255,.05);
+
+    color:white;
+
+    border:
+    1px solid rgba(255,220,150,.08);
 }
 
 textarea{
-    min-height:160px;
-    resize:none;
-}
-
-button{
     margin-top:20px;
-    padding:15px 35px;
+    min-height:160px;
+}
+
+.send{
+    margin-top:25px;
+    padding:18px 40px;
+    background:#d8a45a;
     border:none;
-    background:linear-gradient(45deg,#d9a95f,#f6d39a);
-    color:#111;
-    cursor:pointer;
+    color:black;
     font-weight:bold;
-    transition:.5s;
+    cursor:pointer;
 }
 
-button:hover{
-    transform:translateY(-5px);
-}
+/* =========================
+RESPONSIVE
+========================= */
 
-/* FOOTER */
-
-footer{
-    padding:50px 10%;
-    text-align:center;
-    color:#c8b18d;
-    border-top:1px solid rgba(255,220,140,.1);
-}
-
-/* RESPONSIVE */
-
-@media(max-width:1000px){
-
-.hero{
-    flex-direction:column;
-    justify-content:center;
-    text-align:center;
-}
-
-.hero-content,
-.hero-image{
-    width:100%;
-}
+@media(max-width:900px){
 
 .hero-title{
-    font-size:70px;
+font-size:58px;
 }
 
-.timeline::before{
-    left:0;
+.ribbon{
+width:500px;
 }
 
-.timeline-item{
-    width:100%;
-    left:0 !important;
+nav ul{
+display:none;
 }
 
 .contact-grid{
-    grid-template-columns:1fr;
+grid-template-columns:1fr;
 }
 
 }
@@ -532,161 +569,75 @@ footer{
 
 <body>
 
+<div class="bg">
+
 <div class="moon"></div>
-<div class="stars"></div>
 
-<div class="cloud cloud1"></div>
-<div class="cloud cloud2"></div>
+<div class="fog"></div>
 
-<!-- PETALS -->
+</div>
 
-<script>
-for(let i=0;i<25;i++){
+<!-- NAV -->
 
-const petal=document.createElement('div');
+<nav>
 
-petal.classList.add('petal');
+<div class="logo">
+夢
+</div>
 
-petal.style.left=Math.random()*100+'vw';
+<ul>
+<li><a href="#">HOME</a></li>
+<li><a href="#">ABOUT</a></li>
+<li><a href="#">SKILLS</a></li>
+<li><a href="#">TIMELINE</a></li>
+<li><a href="#">PRODUCTS</a></li>
+<li><a href="#">CONTACT</a></li>
+</ul>
 
-petal.style.animationDuration=
-10+Math.random()*10+'s';
+</nav>
 
-petal.style.opacity=Math.random();
+<!-- RIBBON -->
 
-petal.style.transform=
-`scale(${Math.random()+0.5})`;
+<img class="ribbon left"
+src="https://pngimg.com/d/ribbon_PNG1547.png">
 
-document.body.appendChild(petal);
-}
-</script>
+<img class="ribbon right"
+src="https://pngimg.com/d/ribbon_PNG1547.png">
 
 <!-- HERO -->
 
-<section class="hero" id="home">
+<section class="hero">
+
+<!-- DEER -->
+
+<img class="deer"
+src="https://pngimg.com/d/deer_PNG10174.png">
 
 <div class="hero-content">
 
+<div class="hero-sub">
+DUNHUANG ART PORTFOLIO
+</div>
+
 <h1 class="hero-title">
-Mộng Phi Thiên
+NGUYEN PHU CUONG
 </h1>
 
-<div class="ornament"></div>
-
 <p class="hero-desc">
-Graphic Designer<br>
-Digital Designer<br>
-Digital Artist<br>
-Multimedia Artist<br>
-Book Cover Illustrator / Artist
+
+Tô sắc cho những giấc mộng không lời,
+nơi sắc màu biết thở và tưởng tượng được tự do.
+
+<br><br>
+
+Graphic Designer • Digital Artist • Multimedia Artist •
+Book Cover Illustrator
+
 </p>
 
-<div class="nav-buttons">
-
-<a href="#about">About</a>
-<a href="#skills">Skills</a>
-<a href="#timeline">Timeline</a>
-<a href="#products">Products</a>
-<a href="#contact">Contact</a>
-
-</div>
-
-</div>
-
-<div class="hero-image">
-
-<img src="https://images.unsplash.com/photo-1517849845537-4d257902454a?q=80&w=1200&auto=format&fit=crop" alt="Dunhuang Deer">
-
-</div>
-
-</section>
-
-<!-- ABOUT -->
-
-<section id="about">
-
-<h2 class="title">Nguyen Phu Cuong (Yuue)</h2>
-
-<div class="ornament"></div>
-
-<p class="subtitle">
-Graphic Designer • Digital Designer • Digital Artist
-</p>
-
-<div class="about-box">
-
-<p class="quote">
-“Tô sắc cho những giấc mộng không lời,
-nơi sắc màu biết thở và tưởng tượng được tự do.”
-</p>
-
-</div>
-
-</section>
-
-<!-- SKILLS -->
-
-<section id="skills">
-
-<h2 class="title">Kỹ Năng</h2>
-
-<div class="ornament"></div>
-
-<div class="skills-grid">
-
-<div class="skill-card">
-<h3>Photoshop</h3>
-<p>Thiết kế hình ảnh, cinematic artwork, manipulation và digital painting.</p>
-</div>
-
-<div class="skill-card">
-<h3>Illustrator</h3>
-<p>Thiết kế đồ họa nghệ thuật, bố cục và branding.</p>
-</div>
-
-<div class="skill-card">
-<h3>Nhiếp Ảnh</h3>
-<p>Chụp ảnh nghệ thuật, ánh sáng và bố cục điện ảnh.</p>
-</div>
-
-<div class="skill-card">
-<h3>Vocal Music</h3>
-<p>Biểu đạt cảm xúc nghệ thuật thông qua âm nhạc và giọng hát.</p>
-</div>
-
-</div>
-
-</section>
-
-<!-- TIMELINE -->
-
-<section id="timeline">
-
-<h2 class="title">Hành Trình</h2>
-
-<div class="ornament"></div>
-
-<div class="timeline">
-
-<div class="timeline-item">
-<h3>2023</h3>
-<p>Vừa đi học vừa đi làm phục vụ nhà hàng tiệc cưới.</p>
-</div>
-
-<div class="timeline-item">
-<h3>01 / 2024</h3>
-<p>Đi làm nhân viên sân cầu lông.</p>
-</div>
-
-<div class="timeline-item">
-<h3>03 / 2024</h3>
-<p>Làm giám sát camera cho chung cư Gamuda Land.</p>
-</div>
-
-<div class="timeline-item">
-<h3>06 / 2024</h3>
-<p>Làm công nhân tô vẽ cho xưởng gia công gốm sứ.</p>
-</div>
+<a href="#" class="btn">
+ENTER THE DREAM
+</a>
 
 </div>
 
@@ -694,40 +645,58 @@ nơi sắc màu biết thở và tưởng tượng được tự do.”
 
 <!-- PRODUCTS -->
 
-<section id="products">
+<section class="showcase">
 
-<h2 class="title">Personal Products</h2>
+<h2 class="section-title">
+Personal Products
+</h2>
 
-<div class="ornament"></div>
+<div class="cards">
 
-<div class="products">
-
-<div class="product-card">
-
-<img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1200&auto=format&fit=crop">
-
-<div class="product-info">
-<h3>Logo Cá Nhân</h3>
-</div>
-
-</div>
-
-<div class="product-card">
+<div class="card">
 
 <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop">
 
-<div class="product-info">
-<h3>Name Card</h3>
-</div>
+<div class="card-content">
+
+<h3>Logo Design</h3>
+
+<p>
+Thiết kế logo mang phong cách cổ phong nghệ thuật.
+</p>
 
 </div>
 
-<div class="product-card">
+</div>
+
+<div class="card">
 
 <img src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?q=80&w=1200&auto=format&fit=crop">
 
-<div class="product-info">
+<div class="card-content">
+
+<h3>Name Card</h3>
+
+<p>
+Thiết kế name card cinematic phong cách Đôn Hoàng.
+</p>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1200&auto=format&fit=crop">
+
+<div class="card-content">
+
 <h3>Bookmark</h3>
+
+<p>
+Bookmark nghệ thuật với họa tiết tiên cảnh Trung Hoa.
+</p>
+
 </div>
 
 </div>
@@ -738,11 +707,11 @@ nơi sắc màu biết thở và tưởng tượng được tự do.”
 
 <!-- CONTACT -->
 
-<section id="contact">
+<section class="contact">
 
-<h2 class="title">Liên Hệ</h2>
-
-<div class="ornament"></div>
+<h2 class="section-title">
+Liên Hệ
+</h2>
 
 <div class="contact-box">
 
@@ -754,23 +723,41 @@ nơi sắc màu biết thở và tưởng tượng được tự do.”
 
 </div>
 
-<br>
-
 <textarea placeholder="Nội dung tin nhắn"></textarea>
 
-<button>Gửi Tin Nhắn</button>
+<button class="send">
+Gửi Tin Nhắn
+</button>
 
 </div>
 
 </section>
 
-<footer>
+<script>
 
-<p>
-© 2026 - Mộng Phi Thiên | Nguyen Phu Cuong (Yuue)
-</p>
+/* PARTICLES */
 
-</footer>
+for(let i=0;i<80;i++){
+
+let p=document.createElement('div');
+
+p.classList.add('particle');
+
+p.style.left=Math.random()*100+'vw';
+
+p.style.animationDuration=
+5+Math.random()*10+'s';
+
+p.style.animationDelay=
+Math.random()*5+'s';
+
+p.style.opacity=Math.random();
+
+document.body.appendChild(p);
+
+}
+
+</script>
 
 </body>
 </html>
