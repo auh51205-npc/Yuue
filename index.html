@@ -651,26 +651,62 @@
       line-height:2;
     }
 
-    /* PETALS */
+   /* PETALS */
 
-    .petal{
-      position:fixed;
-      top:-10%;
-      width:22px;
-      pointer-events:none;
-      z-index:100;
-      opacity:.8;
-      animation:petalFall linear infinite;
-    }
+.petal{
+  position:fixed;
+  top:-10%;
+  width:22px;
+  height:22px;
+  pointer-events:none;
+  z-index:100;
+  opacity:.8;
 
-    @keyframes petalFall{
-      from{
-        transform:translateY(-10vh) rotate(0deg);
-      }
-      to{
-        transform:translateY(120vh) rotate(360deg);
-      }
-    }
+  background:
+  radial-gradient(circle at 30% 30%, #ffd7e2 0%, #f7b8c8 45%, #e38aa2 100%);
+
+  border-radius:
+  70% 30% 70% 30% /
+  60% 40% 60% 40%;
+
+  filter:
+  drop-shadow(0 0 8px rgba(255,190,210,.4));
+
+  animation:petalFall linear infinite;
+}
+
+@keyframes petalFall{
+
+  0%{
+    transform:
+      translateY(-10vh)
+      translateX(0px)
+      rotate(0deg);
+
+    opacity:0;
+  }
+
+  10%{
+    opacity:.9;
+  }
+
+  50%{
+    transform:
+      translateY(50vh)
+      translateX(40px)
+      rotate(180deg);
+  }
+
+  100%{
+    transform:
+      translateY(120vh)
+      translateX(-60px)
+      rotate(360deg);
+
+    opacity:0;
+  }
+
+}
 
     /* RESPONSIVE */
 
